@@ -67,7 +67,7 @@
                 </div>
                 <div>
                     <h1 class="text-base font-black bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">시립 이음어린이집 통합 행정 시스템</h1>
-                    <p class="text-xs text-emerald-600 font-bold">✨ [공휴일/대체공휴일 평일전환 및 전체복사 버전]</p>
+                    <p class="text-xs text-emerald-600 font-bold">✨ [연월차대장 생일/입사일/출퇴근시간 수정 및 전체복사 버전]</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -397,8 +397,17 @@
             <div class="overflow-x-auto mb-4">
                 <table class="w-full text-xs border-collapse border border-slate-200">
                     <thead>
-                        <tr class="bg-indigo-50 text-indigo-900 font-bold">
-                            <th class="border p-2">성명</th><th class="border p-2">직종</th><th class="border p-2">생일</th><th class="border p-2">입사일</th><th class="border p-2 bg-pink-100 text-pink-900">총부여일수 (수정가능)</th><th class="border p-2 bg-rose-50 text-rose-700">사용일수</th><th class="border p-2 bg-emerald-50 text-emerald-700">잔여일수</th><th class="border p-2 no-print w-16">관리</th>
+                        <tr class="bg-indigo-50 text-indigo-900 font-bold text-center">
+                            <th class="border p-2">성명</th>
+                            <th class="border p-2">직종</th>
+                            <th class="border p-2">생일 (수정가능)</th>
+                            <th class="border p-2">입사일 (수정가능)</th>
+                            <th class="border p-2">출근시간</th>
+                            <th class="border p-2">퇴근시간</th>
+                            <th class="border p-2 bg-pink-100 text-pink-900">총부여일수</th>
+                            <th class="border p-2 bg-rose-50 text-rose-700">사용일수</th>
+                            <th class="border p-2 bg-emerald-50 text-emerald-700">잔여일수</th>
+                            <th class="border p-2 no-print w-16">관리</th>
                         </tr>
                     </thead>
                     <tbody id="leave-tbody" class="text-center"></tbody>
@@ -571,23 +580,22 @@
         let monthlyDutyTimes = {};
 
         let staffProfiles = {
-            "김윤경": { role: "원장", joinDate: "2026-07-01", resignDate: "", birthDate: "1979-12-30" },
-            "정지혜": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1985-12-09" },
-            "이혜빈": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1999-08-21" },
-            "홍여진": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1980-04-09" },
-            "어영경": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1999-01-16" },
-            "김민경": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1999-10-05" },
-            "최옥희": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1992-03-05" },
-            "봉은영": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1984-04-16" },
-            "김소희": { role: "연장반교사", joinDate: "2026-07-20", resignDate: "", birthDate: "1996-07-01" },
-            "진복남": { role: "조리사", joinDate: "2026-07-01", resignDate: "", birthDate: "1964-07-20" }
+            "김윤경": { role: "원장", joinDate: "2026-07-01", resignDate: "", birthDate: "1979-12-30", workStart: "09:00", workEnd: "18:00" },
+            "정지혜": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1985-12-09", workStart: "09:00", workEnd: "18:00" },
+            "이혜빈": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1999-08-21", workStart: "09:00", workEnd: "18:00" },
+            "홍여진": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1980-04-09", workStart: "09:00", workEnd: "18:00" },
+            "어영경": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1999-01-16", workStart: "09:00", workEnd: "18:00" },
+            "김민경": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1999-10-05", workStart: "09:00", workEnd: "18:00" },
+            "최옥희": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1992-03-05", workStart: "09:00", workEnd: "18:00" },
+            "봉은영": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1984-04-16", workStart: "09:00", workEnd: "18:00" },
+            "김소희": { role: "연장반교사", joinDate: "2026-07-20", resignDate: "", birthDate: "1996-07-01", workStart: "13:00", workEnd: "19:30" },
+            "진복남": { role: "조리사", joinDate: "2026-07-01", resignDate: "", birthDate: "1964-07-20", workStart: "08:30", workEnd: "17:30" }
         };
 
         let customLeaveGrants = {};
 
         let welfareCustomList = [
             { id: 1, name: "김윤경", checkup: "2026-10-15 완료", item: "원장 특별 복지", pt: "500,000원" },
-          
         ];
 
         const holidays = {
@@ -651,7 +659,7 @@
         });
 
         function initDatabase() {
-            const saved = localStorage.getItem("orijin_system_pdf_style_v11");
+            const saved = localStorage.getItem("orijin_system_pdf_style_v12");
             if (saved) {
                 database = JSON.parse(saved);
                 if(database.profiles) staffProfiles = database.profiles;
@@ -699,7 +707,7 @@
             database.schedule = scheduleDatabase;
             database.monthlyDutyTimes = monthlyDutyTimes;
             database.customGrants = customLeaveGrants;
-            localStorage.setItem("orijin_system_pdf_style_v11", JSON.stringify(database));
+            localStorage.setItem("orijin_system_pdf_style_v12", JSON.stringify(database));
         }
 
         function getDutyTimesForMonth(y, m) {
@@ -708,22 +716,17 @@
             return monthlyDutyTimes[key];
         }
 
-        // 공휴일/대체공휴일 ↔ 평일 수동 전환 토글 (클릭 시 대체공휴일 글자 제거 및 평일 반영)
         function toggleManualHoliday(key) {
             if (!database.calendar[key]) database.calendar[key] = { duties: ["-", "-", "-", "-"], isHoliday: false, forcedWork: false };
-            
-            // 현재 상태가 휴일(공휴일/주말/수동휴일)인 경우 -> 평일로 전환
             if (database.calendar[key].isHoliday) {
                 database.calendar[key].isHoliday = false;
-                database.calendar[key].forcedWork = true; // 평일로 강제 전환됨 표시
-                // 평일이 되었으므로 기본 당직자 자동 배정 (가능한 경우)
+                database.calendar[key].forcedWork = true;
                 const parts = key.split('-');
                 const dtTeachers = getActiveDutyTeachers(Number(parts[0]), Number(parts[1]));
                 if(dtTeachers.length >= 4) {
                     database.calendar[key].duties = [dtTeachers[0], dtTeachers[1], dtTeachers[2], dtTeachers[3]];
                 }
             } else {
-                // 평일인 경우 -> 휴일로 전환
                 database.calendar[key].isHoliday = true;
                 database.calendar[key].forcedWork = false;
                 database.calendar[key].duties = ["-", "-", "-", "-"];
@@ -797,7 +800,7 @@
             const role = document.getElementById("new-staff-role").value;
             if(!name) { alert("성명을 입력해주세요."); return; }
             if(staffProfiles[name]) { alert("이미 등록된 성명입니다."); return; }
-            staffProfiles[name] = { role, joinDate: "2026-03-01", resignDate: "", birthDate: "1995-01-01" };
+            staffProfiles[name] = { role, joinDate: "2026-03-01", resignDate: "", birthDate: "1995-01-01", workStart: "09:00", workEnd: "18:00" };
             welfareCustomList.push({ id: Date.now(), name, checkup: "2026-10-15 완료", item: "신규 교직원 복지", pt: "350,000원" });
             saveToStorage(); document.getElementById("new-staff-name").value = "";
             buildSelects(); renderAll();
@@ -848,6 +851,13 @@
         function updateCustomLeaveGrant(name, val) {
             customLeaveGrants[name] = Number(val) || 0;
             saveToStorage();
+        }
+
+        function updateStaffProfileField(name, field, val) {
+            if (staffProfiles[name]) {
+                staffProfiles[name][field] = val;
+                saveToStorage();
+            }
         }
 
         function switchTab(tabId) {
@@ -918,7 +928,6 @@
                 const dayData = database.calendar[key] || { duties: [], isHoliday: false, forcedWork: false };
                 const dow = new Date(y, m-1, d).getDay();
                 
-                // 평일 전환되었고 강제 평일 지정(forcedWork)된 경우 공휴일/대체공휴일 글자 표시 안 함
                 let isEffectiveHoliday = (dow === 0 || dow === 6 || dayData.isHoliday) && !dayData.forcedWork;
                 let holText = isEffectiveHoliday ? (dayData.isHoliday && dow!==0 && dow!==6 ? "수동휴일" : (holidays[key] || (dow===0?"일요일":dow===6?"토요일":""))) : "";
 
@@ -1009,7 +1018,6 @@
                 const dayData = database.calendar[key] || { duties: [], isHoliday: false, forcedWork: false };
                 const dow = new Date(y, m-1, d).getDay();
                 
-                // 평일 전환되었고 강제 평일 지정(forcedWork)된 경우 휴일 계산에서 제외하여 평일로 처리
                 let effectiveHoliday = ((dow === 0 || dow === 6 || dayData.isHoliday) && !dayData.forcedWork);
                 let holText = effectiveHoliday ? (dayData.isHoliday && dow!==0 && dow!==6 ? "수동휴일" : (holidays[key] || (dow===0?"일요일":dow===6?"토요일":""))) : "평일";
 
@@ -1105,7 +1113,7 @@
                 if (dayData.duties[2] === teacher) return { type: "오후당직1", inTime: times[2].split('~')[0], outTime: times[2].split('~')[1] };
                 if (dayData.duties[3] === teacher) return { type: "오후당직2", inTime: times[3].split('~')[0], outTime: times[3].split('~')[1] };
             }
-            return { type: `${profile.role} 정상 근무`, inTime: "09:00", outTime: "18:00" };
+            return { type: `${profile.role} 정상 근무`, inTime: profile.workStart || "09:00", outTime: profile.workEnd || "18:00" };
         }
 
         function toggleAttendanceMode() {
@@ -1206,8 +1214,10 @@
                     <tr>
                         <td class="border p-2 font-bold">${t}</td>
                         <td class="border p-2 text-slate-500">${profile.role}</td>
-                        <td class="border p-2 font-mono">${profile.birthDate || '-'}</td>
-                        <td class="border p-2 font-mono">${profile.joinDate || '-'}</td>
+                        <td class="border p-2 font-mono"><input type="text" value="${profile.birthDate || ''}" onchange="updateStaffProfileField('${t}', 'birthDate', this.value)" class="w-24 text-center bg-white border border-slate-200 rounded p-1 text-xs font-mono"></td>
+                        <td class="border p-2 font-mono"><input type="text" value="${profile.joinDate || ''}" onchange="updateStaffProfileField('${t}', 'joinDate', this.value)" class="w-24 text-center bg-white border border-slate-200 rounded p-1 text-xs font-mono"></td>
+                        <td class="border p-2 font-mono"><input type="text" value="${profile.workStart || '09:00'}" onchange="updateStaffProfileField('${t}', 'workStart', this.value)" class="w-16 text-center bg-white border border-slate-200 rounded p-1 text-xs font-mono"></td>
+                        <td class="border p-2 font-mono"><input type="text" value="${profile.workEnd || '18:00'}" onchange="updateStaffProfileField('${t}', 'workEnd', this.value)" class="w-16 text-center bg-white border border-slate-200 rounded p-1 text-xs font-mono"></td>
                         <td class="border p-2 bg-pink-50/40"><input type="number" step="0.5" value="${totalGrant}" onchange="updateCustomLeaveGrant('${t}', this.value); renderLeave();" class="w-16 text-center font-bold bg-white border border-pink-200 rounded p-1 text-xs">일</td>
                         <td class="border p-2 font-bold text-rose-600">${used}일</td>
                         <td class="border p-2 font-black text-emerald-600">${remain}일</td>
