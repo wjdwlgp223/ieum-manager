@@ -10,61 +10,75 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Pretendard', system-ui, sans-serif; letter-spacing: -0.02em; }
-        .approval-box { border-collapse: collapse; font-size: 10px; text-align: center; }
+        body { font-family: 'Pretendard', system-ui, sans-serif; letter-spacing: -0.02em; font-size: 14px; }
+        .approval-box { border-collapse: collapse; font-size: 11px; text-align: center; }
         .approval-box td, .approval-box th { border: 1px solid #475569; padding: 2px 4px; }
         
-        .staff-sign-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 8px; text-align: center; display: none; }
-        .staff-sign-table th, .staff-sign-table td { border: 1px solid #475569; padding: 1px; }
+        .staff-sign-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 10px; text-align: center; display: none; }
+        .staff-sign-table th, .staff-sign-table td { border: 1px solid #475569; padding: 2px; }
         .staff-sign-table th { background-color: #f1f5f9 !important; color: #000; }
 
+        /* 당직별 색상 구분 스타일 클래스 */
+        .duty-badge-0 { background-color: #fce7f3 !important; color: #9d174d !important; border: 1px solid #fbcfe8 !important; } 
+        .duty-badge-1 { background-color: #e0f2fe !important; color: #0369a1 !important; border: 1px solid #bae6fd !important; } 
+        .duty-badge-2 { background-color: #f3e8ff !important; color: #6b21a8 !important; border: 1px solid #e9d5ff !important; } 
+        .duty-badge-3 { background-color: #ffedd5 !important; color: #c2410c !important; border: 1px solid #fed7aa !important; } 
+
+        @media (max-width: 768px) {
+            body { padding-bottom: 20px; font-size: 12px; }
+            .max-w-7xl { padding-left: 8px !important; padding-right: 8px !important; }
+            .tab-content { padding: 10px !important; border-radius: 16px !important; }
+            .mobile-hide-stats { display: none !important; }
+            .mobile-hide-tab { display: none !important; }
+            .mobile-hide-top-btns { display: none !important; } 
+            .mobile-hide-approval { display: none !important; } 
+            
+            #calendar-grid > div { height: auto !important; min-height: 70px !important; padding: 1.5px !important; }
+            #calendar-grid div[onclick] { font-size: 8px !important; padding: 1px !important; margin-bottom: 1px !important; line-height: 1.1 !important; }
+            #schedule-calendar-grid > div { height: auto !important; min-height: 70px !important; padding: 1.5px !important; }
+        }
+
         @media print {
-            @page { size: A4 portrait; margin: 5mm; }
-            body { background-color: #ffffff !important; color: #000000 !important; padding: 0 !important; font-size: 8px !important; }
+            @page { size: A4 portrait; margin: 4mm; }
+            body { background-color: #ffffff !important; color: #000000 !important; padding: 0 !important; font-size: 8.5px !important; }
             .no-print { display: none !important; }
             .print-full { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
-            .tab-content { display: none !important; border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
+            .tab-content { display: none !important; border: none !important; box-shadow: none !important; padding: 2px !important; margin: 0 !important; }
             .tab-content.active-print { display: block !important; page-break-after: avoid !important; }
             .print-no-stats { display: none !important; }
             .staff-sign-table { display: table !important; page-break-inside: avoid; }
-            .print-header-visible { display: block !important; margin-bottom: 4px !important; }
+            .print-header-visible { display: block !important; margin-bottom: 2px !important; }
             
-            #schedule-calendar-grid > div { height: 78px !important; padding: 2px !important; }
-            #schedule-calendar-grid .text-xs { font-size: 8px !important; }
-            #schedule-calendar-grid div.p-1\.5 { padding: 1px 2px !important; margin-bottom: 1px !important; font-size: 8px !important; }
-
+            #schedule-calendar-grid > div { height: 62px !important; padding: 1px !important; }
+            #calendar-grid > div { height: 62px !important; padding: 1px !important; }
             table { font-size: 8px !important; }
-            th, td { padding: 1px 2px !important; }
-            h2 { font-size: 14px !important; }
-            .p-6 { padding: 2px !important; }
-            .mb-6 { margin-bottom: 4px !important; }
-            .mb-4 { margin-bottom: 4px !important; }
+            th, td { padding: 1px !important; }
+            h2 { font-size: 13px !important; }
         }
     </style>
 </head>
 <body class="bg-gradient-to-br from-pink-50/60 via-purple-50/40 to-indigo-50/60 min-h-screen pb-12 text-slate-800">
 
     <header class="bg-white/85 backdrop-blur-lg sticky top-0 z-40 border-b border-pink-100/80 no-print shadow-sm">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-md">
                     <i class="fa-solid fa-child-reaching text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="text-sm font-black bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">시립 이음어린이집 통합 행정 시스템</h1>
-                    <p class="text-[11px] text-emerald-600 font-bold">✨ [시간외 근무대장 월별 조회 및 중복 상단 삭제 최종 버전]</p>
+                    <h1 class="text-base font-black bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">시립 이음어린이집 통합 행정 시스템</h1>
+                    <p class="text-xs text-emerald-600 font-bold">✨ [공휴일/대체공휴일 평일전환 및 전체복사 버전]</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="resetToDefault()" class="px-3 py-1.5 bg-rose-50 text-rose-500 border border-rose-100 rounded-xl text-xs font-bold transition no-print shadow-sm">
-                    <i class="fa-solid fa-arrow-rotate-left"></i> 초기화
-                </button>
-                <button onclick="exportCurrentTabExcel()" class="px-3.5 py-1.5 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-xl text-xs font-black transition no-print shadow-sm">
-                    <i class="fa-solid fa-file-excel"></i> 엑셀(.xlsx) 다운로드
-                </button>
-                <button onclick="copyTableForHWP()" class="px-3.5 py-1.5 bg-indigo-50 text-indigo-600 border border-indigo-200 rounded-xl text-xs font-black transition no-print shadow-sm" title="한글 프로그램에 붙여넣기 할 수 있도록 화면 데이터를 복사합니다.">
-                    <i class="fa-solid fa-paste"></i> 한글(HWP) 복사
-                </button>
+                <div class="flex items-center gap-2 mobile-hide-top-btns">
+                    <button onclick="exportCurrentTabExcel()" class="px-3.5 py-1.5 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-xl text-xs font-black transition no-print shadow-sm">
+                        <i class="fa-solid fa-file-excel"></i> 엑셀(.xlsx) 다운로드
+                    </button>
+                    <button onclick="copyTableForHWP()" class="px-3.5 py-1.5 bg-indigo-50 text-indigo-600 border border-indigo-200 rounded-xl text-xs font-black transition no-print shadow-sm" title="한글 프로그램에 붙여넣기 할 수 있도록 화면 데이터를 복사합니다.">
+                        <i class="fa-solid fa-paste"></i> 전체 복사 (한글/엑셀용)
+                    </button>
+                </div>
                 <button onclick="printCurrentTab()" class="px-4 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl text-xs font-black transition shadow-lg">
                     <i class="fa-solid fa-print"></i> A4 서류 인쇄
                 </button>
@@ -72,39 +86,39 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 mt-6 print-full">
+    <main class="max-w-7xl mx-auto px-2 sm:px-6 mt-4 sm:mt-6 print-full">
         <!-- 탭 메뉴 -->
-        <div class="bg-white/80 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-pink-100/50 mb-6 flex gap-1 overflow-x-auto no-print">
-            <button onclick="switchTab('tab-schedule')" id="btn-schedule" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md">
-                <i class="fa-solid fa-calendar-star mr-1"></i> 행사일정표
-            </button>
-            <button onclick="switchTab('tab-duty')" id="btn-duty" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50">
+        <div class="bg-white/80 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-pink-100/50 mb-4 sm:mb-6 flex gap-1 overflow-x-auto no-print">
+            <button onclick="switchTab('tab-duty')" id="btn-duty" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md">
                 <i class="fa-solid fa-calendar-days mr-1"></i> 당직표
             </button>
-            <button onclick="switchTab('tab-attendance')" id="btn-attendance" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50">
+            <button onclick="switchTab('tab-schedule')" id="btn-schedule" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50">
+                <i class="fa-solid fa-calendar-star mr-1"></i> 행사일정표
+            </button>
+            <button onclick="switchTab('tab-attendance')" id="btn-attendance" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50 mobile-hide-tab">
                 <i class="fa-solid fa-clipboard-user mr-1 text-amber-500"></i> 출근부
             </button>
-            <button onclick="switchTab('tab-status')" id="btn-status" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50">
+            <button onclick="switchTab('tab-status')" id="btn-status" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50 mobile-hide-tab">
                 <i class="fa-solid fa-business-time mr-1 text-emerald-500"></i> 근무상황부
             </button>
-            <button onclick="switchTab('tab-overtime')" id="btn-overtime" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50">
+            <button onclick="switchTab('tab-overtime')" id="btn-overtime" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50 mobile-hide-tab">
                 <i class="fa-solid fa-wallet mr-1 text-sky-500"></i> 시간외근무
             </button>
-            <button onclick="switchTab('tab-leave')" id="btn-leave" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50">
+            <button onclick="switchTab('tab-leave')" id="btn-leave" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50 mobile-hide-tab">
                 <i class="fa-solid fa-calendar-check mr-1 text-indigo-500"></i> 연월차대장
             </button>
-            <button onclick="switchTab('tab-welfare')" id="btn-welfare" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50">
+            <button onclick="switchTab('tab-welfare')" id="btn-welfare" class="tab-btn flex-1 min-w-[90px] py-3 text-center rounded-xl font-black text-xs transition text-slate-600 hover:bg-pink-50/50 mobile-hide-tab">
                 <i class="fa-solid fa-heart-pulse mr-1 text-rose-500"></i> 복지대장
             </button>
         </div>
 
-        <!-- 공통 상단 결재란 (행사일정표/당직표 등에서 활용) -->
-        <div id="print-header-area" class="mb-4 print-header-visible">
+        <!-- 공통 상단 결재란 -->
+        <div id="print-header-area" class="mb-4 print-header-visible mobile-hide-approval">
             <div class="flex justify-between items-end border-b-2 border-slate-800 pb-2">
                 <div>
-                    <div class="text-[11px] font-black text-pink-600 mb-0.5" id="print-year-label">2026년도 7월 행정 서류</div>
-                    <h2 id="doc-title" class="text-xl font-black text-slate-900">2026년 7월 원내 행사 일정표</h2>
-                    <p class="text-[11px] text-slate-500 font-bold mt-0.5" id="doc-subtitle">시립 이음어린이집</p>
+                    <div class="text-xs font-black text-pink-600 mb-0.5" id="print-year-label">2026년도 7월 행정 서류</div>
+                    <h2 id="doc-title" class="text-2xl font-black text-slate-900">2026년 7월 당직근무 편성표</h2>
+                    <p class="text-xs text-slate-500 font-bold mt-0.5" id="doc-subtitle">시립 이음어린이집</p>
                 </div>
                 <table class="approval-box">
                     <tr>
@@ -120,117 +134,59 @@
             </div>
         </div>
 
-        <!-- 행사일정표 탭 -->
-        <div id="tab-schedule" class="tab-content active-print bg-white p-6 rounded-3xl shadow-xl border border-pink-100/40">
+        <!-- 당직표 탭 -->
+        <div id="tab-duty" class="tab-content active-print bg-white p-4 sm:p-6 rounded-3xl shadow-xl border border-pink-100/40">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4 bg-pink-50/60 p-3 rounded-2xl border border-pink-100 no-print">
                 <div class="flex items-center gap-3">
-                    <button onclick="moveScheduleMonth(-1)" class="w-8 h-8 bg-white border border-pink-200 rounded-xl text-pink-600 font-black shadow-sm hover:bg-pink-50 transition flex items-center justify-center">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-                    <span id="schedule-current-label" class="text-sm font-black text-slate-900 font-mono min-w-[110px] text-center">2026년 7월</span>
-                    <button onclick="moveScheduleMonth(1)" class="w-8 h-8 bg-white border border-pink-200 rounded-xl text-pink-600 font-black shadow-sm hover:bg-pink-50 transition flex items-center justify-center">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
+                    <button onclick="moveDutyMonth(-1)" class="w-8 h-8 bg-white border border-pink-200 rounded-xl text-pink-600 font-black shadow-sm hover:bg-pink-50 transition flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                    <span id="duty-current-label" class="text-sm font-black text-slate-900 font-mono min-w-[110px] text-center">2026년 7월</span>
+                    <button onclick="moveDutyMonth(1)" class="w-8 h-8 bg-white border border-pink-200 rounded-xl text-pink-600 font-black shadow-sm hover:bg-pink-50 transition flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
-                <div class="flex flex-wrap gap-1 items-center justify-center text-[9px] font-bold">
-                    <span class="px-1.5 py-0.5 rounded bg-pink-100 text-pink-800">원내행사</span>
-                    <span class="px-1.5 py-0.5 rounded bg-purple-100 text-purple-800">특별활동</span>
-                    <span class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800">생일잔치</span>
-                    <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">현장학습</span>
-                    <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">부모상담</span>
-                    <span class="px-1.5 py-0.5 rounded bg-red-100 text-red-800">소방대피</span>
-                    <span class="px-1.5 py-0.5 rounded bg-orange-100 text-orange-800">운동회</span>
-                    <span class="px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800">교사회의</span>
-                    <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">운영위원회</span>
-                    <span class="px-1.5 py-0.5 rounded bg-cyan-100 text-cyan-800">교직원생일</span>
-                    <span class="px-1.5 py-0.5 rounded bg-teal-100 text-teal-800">OT</span>
-                    <span class="px-1.5 py-0.5 rounded bg-violet-100 text-violet-800">수료및졸업</span>
-                    <span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700">연차반차</span>
-                </div>
-            </div>
-
-            <div id="schedule-grid-view">
-                <div class="grid grid-cols-7 gap-1 mb-1">
-                    <div class="py-1 text-center text-[10px] font-black text-rose-600 bg-rose-50 rounded-lg">일</div>
-                    <div class="py-1 text-center text-[10px] font-black text-slate-700 bg-slate-100 rounded-lg">월</div>
-                    <div class="py-1 text-center text-[10px] font-black text-slate-700 bg-slate-100 rounded-lg">화</div>
-                    <div class="py-1 text-center text-[10px] font-black text-slate-700 bg-slate-100 rounded-lg">수</div>
-                    <div class="py-1 text-center text-[10px] font-black text-slate-700 bg-slate-100 rounded-lg">목</div>
-                    <div class="py-1 text-center text-[10px] font-black text-slate-700 bg-slate-100 rounded-lg">금</div>
-                    <div class="py-1 text-center text-[10px] font-black text-indigo-600 bg-indigo-50 rounded-lg">토</div>
-                </div>
-                <div id="schedule-calendar-grid" class="grid grid-cols-7 gap-1 mb-4"></div>
-            </div>
-
-            <div class="overflow-x-auto mb-4 hidden">
-                <table id="schedule-excel-table" class="w-full text-xs border-collapse border border-slate-200">
-                    <thead>
-                        <tr class="bg-pink-50 text-pink-900 font-bold text-center">
-                            <th class="border p-2">날짜</th>
-                            <th class="border p-2">요일</th>
-                            <th class="border p-2">행사 분류 및 내용</th>
-                        </tr>
-                    </thead>
-                    <tbody id="schedule-excel-tbody" class="text-center"></tbody>
-                </table>
-            </div>
-
-            <table class="staff-sign-table">
-                <thead>
-                    <tr><th colspan="12" class="bg-slate-100 font-bold text-center py-1">행사일정표 확인 및 승인란</th></tr>
-                    <tr id="schedule-sign-header"></tr>
-                </thead>
-                <tbody><tr id="schedule-sign-body" style="height: 25px;"></tr></tbody>
-            </table>
-        </div>
-
-        <!-- 당직표 탭 -->
-        <div id="tab-duty" class="tab-content bg-white p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
-            <div class="bg-pink-50/50 p-1.5 rounded-2xl mb-4 flex gap-1 overflow-x-auto no-print items-center justify-between">
-                <div class="flex gap-1 w-full overflow-x-auto">
-                    <button onclick="changeMonth(2026, 7)" id="month-2026-7" class="sub-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">2026년 7월</button>
-                    <button onclick="changeMonth(2026, 8)" id="month-2026-8" class="sub-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">8월</button>
-                    <button onclick="changeMonth(2026, 9)" id="month-2026-9" class="sub-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">9월</button>
-                    <button onclick="changeMonth(2026, 10)" id="month-2026-10" class="sub-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">10월</button>
-                    <button onclick="changeMonth(2026, 11)" id="month-2026-11" class="sub-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">11월</button>
-                    <button onclick="changeMonth(2026, 12)" id="month-2026-12" class="sub-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">12월</button>
-                    <button onclick="changeMonth(2027, 1)" id="month-2027-1" class="sub-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">2027년 1월</button>
-                    <button onclick="changeMonth(2027, 2)" id="month-2027-2" class="sub-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">2월</button>
+                <div class="flex items-center gap-2">
+                    <button onclick="openDutyBatchEditModal()" class="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-black shadow-sm hover:bg-indigo-700 transition"><i class="fa-solid fa-table-cells"></i> 날짜별 전체 일괄 수정</button>
+                    <button onclick="openDutyTimeModal()" class="px-3 py-1.5 bg-white border border-pink-300 rounded-xl text-pink-800 font-black text-xs shadow-sm hover:bg-pink-50 transition"><i class="fa-solid fa-clock"></i> 당직 시간 수정</button>
                 </div>
             </div>
             
             <div id="calendar-grid-view">
-                <div class="grid grid-cols-7 gap-1.5 mb-2">
-                    <div class="py-2 text-center text-xs font-black text-rose-600 bg-rose-50 rounded-xl">일</div>
-                    <div class="py-2 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">월</div>
-                    <div class="py-2 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">화</div>
-                    <div class="py-2 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">수</div>
-                    <div class="py-2 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">목</div>
-                    <div class="py-2 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">금</div>
-                    <div class="py-2 text-center text-xs font-black text-indigo-600 bg-indigo-50 rounded-xl">토</div>
+                <div class="grid grid-cols-4 gap-1 mb-2 p-2.5 rounded-xl text-center text-xs sm:text-sm font-black text-slate-700">
+                    <div class="p-1.5 rounded-lg duty-badge-0">오전당직1<br><span id="badge-time-0" class="text-[10px] font-mono">07:30~16:30</span></div>
+                    <div class="p-1.5 rounded-lg duty-badge-1">오전당직2<br><span id="badge-time-1" class="text-[10px] font-mono">08:00~17:00</span></div>
+                    <div class="p-1.5 rounded-lg duty-badge-2">오후당직1<br><span id="badge-time-2" class="text-[10px] font-mono">09:00~18:30</span></div>
+                    <div class="p-1.5 rounded-lg duty-badge-3">오후당직2<br><span id="badge-time-3" class="text-[10px] font-mono">09:30~19:30</span></div>
                 </div>
-                <div id="calendar-grid" class="grid grid-cols-7 gap-1.5 mb-6"></div>
+                <div class="grid grid-cols-7 gap-1 sm:gap-1.5 mb-2">
+                    <div class="py-1.5 text-center text-xs font-black text-rose-600 bg-rose-50 rounded-xl">일</div>
+                    <div class="py-1.5 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">월</div>
+                    <div class="py-1.5 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">화</div>
+                    <div class="py-1.5 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">수</div>
+                    <div class="py-1.5 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">목</div>
+                    <div class="py-1.5 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-xl">금</div>
+                    <div class="py-1.5 text-center text-xs font-black text-indigo-600 bg-indigo-50 rounded-xl">토</div>
+                </div>
+                <div id="calendar-grid" class="grid grid-cols-7 gap-1 sm:gap-1.5 mb-4"></div>
             </div>
 
-            <div class="overflow-x-auto mb-6 hidden">
+            <!-- 복사용 숨김 테이블 -->
+            <div class="overflow-x-auto mb-4 hidden">
                 <table id="duty-excel-table" class="w-full text-xs border-collapse border border-slate-200">
                     <thead>
                         <tr class="bg-pink-50 text-pink-900 font-bold text-center">
                             <th class="border p-2">날짜 (요일)</th>
                             <th class="border p-2">구분 / 공휴일</th>
-                            <th class="border p-2">오전당직1</th>
-                            <th class="border p-2">오전당직2</th>
-                            <th class="border p-2">오후당직1</th>
-                            <th class="border p-2">오후당직2</th>
+                            <th id="excel-th-0" class="border p-2">오전당직1 (07:30-16:30)</th>
+                            <th id="excel-th-1" class="border p-2">오전당직2 (08:00-17:00)</th>
+                            <th id="excel-th-2" class="border p-2">오후당직1 (09:00-18:30)</th>
+                            <th id="excel-th-3" class="border p-2">오후당직2 (09:30-19:30)</th>
                         </tr>
                     </thead>
                     <tbody id="duty-excel-tbody" class="text-center"></tbody>
                 </table>
             </div>
 
-            <div class="border-t pt-4 mb-4 print-no-stats">
-                <h3 class="text-xs font-black text-slate-700 mb-2">📊 당월 재직 교직원별 당직 배정 횟수 및 평균 통계</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2" id="duty-summary-grid"></div>
+            <div class="border-t pt-3 mb-4 print-no-stats mobile-hide-stats">
+                <h3 class="text-sm font-black text-slate-700 mb-2">📊 당월 교직원별 당직 배정 통계</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="duty-summary-grid"></div>
             </div>
 
             <table class="staff-sign-table">
@@ -238,14 +194,53 @@
                     <tr><th colspan="12" class="bg-slate-100 font-bold text-center py-1">당월 당직 근무자 확인 및 서명란</th></tr>
                     <tr id="duty-sign-header"></tr>
                 </thead>
-                <tbody><tr id="duty-sign-body" style="height: 30px;"></tr></tbody>
+                <tbody><tr id="duty-sign-body" style="height: 25px;"></tr></tbody>
+            </table>
+        </div>
+
+        <!-- 행사일정표 탭 -->
+        <div id="tab-schedule" class="tab-content bg-white p-4 sm:p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4 bg-pink-50/60 p-3 rounded-2xl border border-pink-100 no-print">
+                <div class="flex items-center gap-3">
+                    <button onclick="moveScheduleMonth(-1)" class="w-8 h-8 bg-white border border-pink-200 rounded-xl text-pink-600 font-black shadow-sm hover:bg-pink-50 transition flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                    <span id="schedule-current-label" class="text-sm font-black text-slate-900 font-mono min-w-[110px] text-center">2026년 7월</span>
+                    <button onclick="moveScheduleMonth(1)" class="w-8 h-8 bg-white border border-pink-200 rounded-xl text-pink-600 font-black shadow-sm hover:bg-pink-50 transition flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="grid grid-cols-7 gap-1 mb-1">
+                <div class="py-1 text-center text-xs font-black text-rose-600 bg-rose-50 rounded-lg">일</div>
+                <div class="py-1 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-lg">월</div>
+                <div class="py-1 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-lg">화</div>
+                <div class="py-1 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-lg">수</div>
+                <div class="py-1 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-lg">목</div>
+                <div class="py-1 text-center text-xs font-black text-slate-700 bg-slate-100 rounded-lg">금</div>
+                <div class="py-1 text-center text-xs font-black text-indigo-600 bg-indigo-50 rounded-lg">토</div>
+            </div>
+            <div id="schedule-calendar-grid" class="grid grid-cols-7 gap-1 mb-4"></div>
+            
+            <div class="overflow-x-auto mb-4 hidden">
+                <table id="schedule-excel-table" class="w-full text-xs border-collapse border border-slate-200">
+                    <thead>
+                        <tr class="bg-pink-50 text-pink-900 font-bold text-center">
+                            <th class="border p-2">날짜</th><th class="border p-2">요일</th><th class="border p-2">행사 분류 및 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schedule-excel-tbody" class="text-center"></tbody>
+                </table>
+            </div>
+            <table class="staff-sign-table">
+                <thead>
+                    <tr><th colspan="12" class="bg-slate-100 font-bold text-center py-1">행사일정표 확인 및 승인란</th></tr>
+                    <tr id="schedule-sign-header"></tr>
+                </thead>
+                <tbody><tr id="schedule-sign-body" style="height: 22px;"></tr></tbody>
             </table>
         </div>
 
         <!-- 출근부 탭 -->
-        <div id="tab-attendance" class="tab-content bg-white p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
+        <div id="tab-attendance" class="tab-content bg-white p-4 sm:p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 pb-4 border-b no-print">
-                <h2 class="text-xl font-black text-slate-900">교직원 출근부 조회</h2>
+                <h2 class="text-2xl font-black text-slate-900">교직원 출근부 조회</h2>
                 <div class="flex items-center gap-2 flex-wrap">
                     <select id="attendance-mode" onchange="toggleAttendanceMode()" class="bg-pink-50 border border-pink-200 rounded-xl p-2 text-xs font-bold text-pink-800">
                         <option value="ALL">전체 교사 일괄 보기 (월별)</option>
@@ -264,12 +259,7 @@
                 <table class="w-full text-xs border-collapse border border-slate-200">
                     <thead>
                         <tr class="bg-pink-50 text-pink-900 font-bold text-center" id="attendance-thead-tr">
-                            <th class="border p-2">일자 (요일)</th>
-                            <th class="border p-2">성명 (직종)</th>
-                            <th class="border p-2">근무 형태 및 비고</th>
-                            <th class="border p-2">출근 시간</th>
-                            <th class="border p-2">퇴근 시간</th>
-                            <th class="border p-2">서명/확인</th>
+                            <th class="border p-2">일자 (요일)</th><th class="border p-2">성명 (직종)</th><th class="border p-2">근무 형태 및 비고</th><th class="border p-2">출근 시간</th><th class="border p-2">퇴근 시간</th><th class="border p-2">서명/확인</th>
                         </tr>
                     </thead>
                     <tbody id="attendance-tbody" class="text-center"></tbody>
@@ -278,9 +268,9 @@
         </div>
 
         <!-- 근무상황부 탭 -->
-        <div id="tab-status" class="tab-content bg-white p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
+        <div id="tab-status" class="tab-content bg-white p-4 sm:p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
             <div class="flex justify-between items-center mb-4 pb-3 border-b no-print">
-                <h2 class="text-xl font-black text-slate-900">근무상황부 (휴가 및 반차 신청 현황)</h2>
+                <h2 class="text-2xl font-black text-slate-900">근무상황부 (휴가 및 반차·경조휴가 신청 현황)</h2>
                 <div class="flex items-center gap-2">
                     <label class="text-xs font-black text-slate-600">조회 구분:</label>
                     <select id="status-filter-teacher" onchange="renderStatusLeave()" class="bg-emerald-50 border border-emerald-200 rounded-xl p-2 text-xs font-bold text-emerald-800">
@@ -290,43 +280,51 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                <div class="bg-pink-50/50 p-5 rounded-2xl border border-pink-100 no-print">
-                    <h3 class="font-black text-slate-900 text-sm mb-3"><i class="fa-solid fa-feather-pointed text-pink-500 mr-1"></i> 휴가 및 반차 신청 등록</h3>
-                    <div class="flex flex-col gap-2.5">
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-500 mb-1">교직원 선택</label>
-                            <select id="reg-teacher" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold"></select>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-500 mb-1">구분</label>
-                            <select id="reg-type" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold">
-                                <option value="연차">연차 (1.0일)</option>
-                                <option value="오전반차">오전반차 (0.5일)</option>
-                                <option value="오후반차">오후반차 (0.5일)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-500 mb-1">일자 선택</label>
-                            <input type="date" id="reg-date" value="2026-07-20" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold font-mono">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-500 mb-1">사유 / 비고</label>
-                            <input type="text" id="reg-reason" value="개인휴가" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold">
-                        </div>
-                        <button onclick="registerLeaveFromStatus()" class="w-full py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl text-xs font-black shadow-md mt-2">등록 및 행사일정표·연월차대장 연동</button>
+                <div class="bg-pink-50/50 p-5 rounded-2xl border border-pink-100 no-print flex flex-col gap-3">
+                    <h3 class="font-black text-slate-900 text-sm"><i class="fa-solid fa-feather-pointed text-pink-500 mr-1"></i> 휴가 및 경조휴가 신청 등록</h3>
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-500 mb-1">교직원 선택</label>
+                        <select id="reg-teacher" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold"></select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-500 mb-1">구분</label>
+                        <select id="reg-type" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold">
+                            <option value="연차">연차 (1.0일)</option>
+                            <option value="오전반차">오전반차 (0.5일)</option>
+                            <option value="오후반차">오후반차 (0.5일)</option>
+                            <option value="경조휴가">경조휴가 (연차 미차감)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-500 mb-1">일자 선택</label>
+                        <input type="date" id="reg-date" value="2026-07-20" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-500 mb-1">사유 / 비고</label>
+                        <input type="text" id="reg-reason" value="개인휴가 또는 경조사" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold">
+                    </div>
+                    <button onclick="registerLeaveFromStatus()" class="w-full py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl text-xs font-black shadow-md mt-1">등록 및 연동</button>
+                    
+                    <!-- 경조휴가 기준 안내 박스 -->
+                    <div class="mt-2 p-3 bg-white border border-pink-200 rounded-xl text-[11px] text-slate-600 leading-relaxed">
+                        <p class="font-bold text-pink-700 mb-1"><i class="fa-solid fa-circle-info mr-1"></i> 경조휴가 부여 기준 (참고)</p>
+                        <ul class="list-disc pl-4 space-y-0.5 text-[10px]">
+                            <li>본인 결혼: 3일</li>
+                            <li>자녀 결혼: 1일</li>
+                            <li>배우자, 본인 및 배우자의 부모상: 3일</li>
+                            <li>본인 및 배우자의 조부모·외조부모상: 1일</li>
+                            <li>자녀와 그 자녀의 배우자상: 2일</li>
+                            <li>본인 및 배우자의 형제자매 또는 그 형제자매의 배우자상: 1일</li>
+                        </ul>
                     </div>
                 </div>
+
                 <div class="lg:col-span-2">
                     <div class="overflow-x-auto">
                         <table class="w-full text-xs border-collapse border border-slate-200">
                             <thead>
                                 <tr class="bg-pink-50 text-pink-900 font-bold">
-                                    <th class="border p-2">성명</th>
-                                    <th class="border p-2">구분</th>
-                                    <th class="border p-2">일자</th>
-                                    <th class="border p-2">차감 일수</th>
-                                    <th class="border p-2">사유 / 비고</th>
-                                    <th class="border p-2 no-print w-16">관리</th>
+                                    <th class="border p-2">성명</th><th class="border p-2">구분</th><th class="border p-2">일자</th><th class="border p-2">차감 일수</th><th class="border p-2">사유 / 비고</th><th class="border p-2 no-print w-16">관리</th>
                                 </tr>
                             </thead>
                             <tbody id="status-tbody" class="text-center"></tbody>
@@ -339,74 +337,47 @@
                     <tr><th colspan="12" class="bg-slate-100 font-bold text-center py-1" id="status-sign-title">근무상황부 확인란</th></tr>
                     <tr id="status-sign-header"></tr>
                 </thead>
-                <tbody><tr id="status-sign-body" style="height: 30px;"></tr></tbody>
+                <tbody><tr id="status-sign-body" style="height: 25px;"></tr></tbody>
             </table>
         </div>
 
-        <!-- 시간외 근무대장 탭 (월별 선택 기능 추가됨) -->
-        <div id="tab-overtime" class="tab-content bg-white p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
-            <!-- 월별 선택 버튼 추가 영역 -->
-            <div class="bg-sky-50/50 p-1.5 rounded-2xl mb-4 flex gap-1 overflow-x-auto no-print items-center justify-between">
-                <div class="flex gap-1 w-full overflow-x-auto">
-                    <button onclick="changeMonth(2026, 7)" id="ot-month-2026-7" class="ot-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">2026년 7월</button>
-                    <button onclick="changeMonth(2026, 8)" id="ot-month-2026-8" class="ot-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">8월</button>
-                    <button onclick="changeMonth(2026, 9)" id="ot-month-2026-9" class="ot-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">9월</button>
-                    <button onclick="changeMonth(2026, 10)" id="ot-month-2026-10" class="ot-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">10월</button>
-                    <button onclick="changeMonth(2026, 11)" id="ot-month-2026-11" class="ot-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">11월</button>
-                    <button onclick="changeMonth(2026, 12)" id="ot-month-2026-12" class="ot-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">12월</button>
-                    <button onclick="changeMonth(2027, 1)" id="ot-month-2027-1" class="ot-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">2027년 1월</button>
-                    <button onclick="changeMonth(2027, 2)" id="ot-month-2027-2" class="ot-month-tab flex-1 min-w-[70px] py-2 text-center rounded-xl font-black text-xs transition">2월</button>
+        <!-- 시간외 근무대장 탭 -->
+        <div id="tab-overtime" class="tab-content bg-white p-4 sm:p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4 bg-sky-50/60 p-3 rounded-2xl border border-sky-100 no-print">
+                <div class="flex items-center gap-3">
+                    <button onclick="moveOvertimeMonth(-1)" class="w-8 h-8 bg-white border border-sky-200 rounded-xl text-sky-600 font-black shadow-sm hover:bg-sky-50 transition flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                    <span id="ot-current-label" class="text-sm font-black text-slate-900 font-mono min-w-[110px] text-center">2026년 7월</span>
+                    <button onclick="moveOvertimeMonth(1)" class="w-8 h-8 bg-white border border-sky-200 rounded-xl text-sky-600 font-black shadow-sm hover:bg-sky-50 transition flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
-
-            <div class="mb-6">
-                <h3 class="text-xs font-black text-sky-900 mb-2"><i class="fa-solid fa-users-viewfinder mr-1"></i> 교직원별 시간외 근무 횟수 현황 요약표</h3>
+            <div class="mb-4">
+                <h3 class="text-sm font-black text-sky-900 mb-2"><i class="fa-solid fa-users-viewfinder mr-1"></i> 교직원별 시간외 근무 횟수 현황 요약표</h3>
                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2" id="ot-teacher-stats-grid"></div>
             </div>
-
-            <div class="overflow-x-auto mb-6">
+            <div class="overflow-x-auto mb-4">
                 <table class="w-full text-xs border-collapse border border-slate-200">
                     <thead>
                         <tr class="bg-sky-50 text-sky-900 font-bold">
-                            <th class="border p-2">근무 일자</th>
-                            <th class="border p-2">성명</th>
-                            <th class="border p-2">직종</th>
-                            <th class="border p-2">근무 형태 및 시간</th>
-                            <th class="border p-2">교직원 확인</th>
+                            <th class="border p-2">근무 일자</th><th class="border p-2">성명</th><th class="border p-2">직종</th><th class="border p-2">근무 형태 및 시간</th><th class="border p-2">교직원 확인</th>
                         </tr>
                     </thead>
                     <tbody id="overtime-tbody" class="text-center"></tbody>
                 </table>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div class="bg-sky-50/70 border border-sky-100 rounded-2xl p-4">
-                    <h3 class="text-xs font-black text-sky-900 mb-2">👤 교사별 시간외 근무 횟수 합계</h3>
-                    <div id="ot-teacher-summary" class="flex flex-col gap-1 text-xs font-bold"></div>
-                </div>
-                <div class="bg-emerald-50/70 border border-emerald-100 rounded-2xl p-4 flex flex-col justify-between">
-                    <h3 class="text-xs font-black text-emerald-900 mb-2">💰 교직원 전체 시간외 근무 총 횟수</h3>
-                    <div class="text-right">
-                        <span class="text-xs font-bold text-slate-600 mr-2">총 근무 횟수:</span>
-                        <span id="ot-grand-total" class="text-emerald-700 font-black text-xl font-mono">0</span>회
-                    </div>
-                </div>
-            </div>
-
             <table class="staff-sign-table">
                 <thead>
                     <tr><th colspan="12" class="bg-slate-100 font-bold text-center py-1">시간외근무대장 전체 교직원 확인 및 서명란</th></tr>
                     <tr id="overtime-sign-header"></tr>
                 </thead>
-                <tbody><tr id="overtime-sign-body" style="height: 30px;"></tr></tbody>
+                <tbody><tr id="overtime-sign-body" style="height: 25px;"></tr></tbody>
             </table>
         </div>
 
         <!-- 연월차대장 탭 -->
-        <div id="tab-leave" class="tab-content bg-white p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
+        <div id="tab-leave" class="tab-content bg-white p-4 sm:p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 pb-3 border-b no-print">
                 <div class="flex items-center gap-3">
-                    <h2 class="text-xl font-black text-slate-900">연월차 관리대장</h2>
+                    <h2 class="text-2xl font-black text-slate-900">연월차 관리대장</h2>
                     <select id="leave-filter-teacher" onchange="renderLeave()" class="bg-indigo-50 border border-indigo-200 rounded-xl p-2 text-xs font-bold text-indigo-900">
                         <option value="ALL">전체 교직원 보기</option>
                     </select>
@@ -417,111 +388,100 @@
                         <option value="보육교사">보육교사</option>
                         <option value="연장반교사">연장반교사</option>
                         <option value="보조교사">보조교사</option>
+                        <option value="보조겸 연장반교사">보조겸 연장반교사</option>
                         <option value="조리사">조리사</option>
                     </select>
                     <button onclick="addNewStaff()" class="px-3 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl text-xs font-black shadow-md">교직원 추가</button>
-                    <button onclick="saveStaffInfoFromLeave()" class="px-3 py-1.5 bg-indigo-500 text-white rounded-xl text-xs font-black shadow-md">정보 저장</button>
                 </div>
             </div>
-
-            <div id="leave-summary-card" class="bg-indigo-50/60 border border-indigo-100 rounded-2xl p-4 mb-4 flex flex-wrap justify-around items-center text-center">
-                <div>
-                    <span class="text-xs text-slate-500 font-bold block">조회 대상</span>
-                    <span id="card-target-name" class="text-sm font-black text-indigo-900">전체 교직원</span>
-                </div>
-                <div>
-                    <span class="text-xs text-slate-500 font-bold block">총부여일</span>
-                    <span class="text-sm font-black text-indigo-900 font-mono">15일 (기준)</span>
-                </div>
-                <div>
-                    <span class="text-xs text-slate-500 font-bold block">총 사용일</span>
-                    <span id="card-used-date" class="text-sm font-black text-rose-600 font-mono">0일</span>
-                </div>
-                <div>
-                    <span class="text-xs text-slate-500 font-bold block">평균 잔여일</span>
-                    <span id="card-remain-date" class="text-sm font-black text-emerald-600 font-mono">15일</span>
-                </div>
-            </div>
-
-            <div class="overflow-x-auto mb-6">
+            <div class="overflow-x-auto mb-4">
                 <table class="w-full text-xs border-collapse border border-slate-200">
                     <thead>
                         <tr class="bg-indigo-50 text-indigo-900 font-bold">
-                            <th class="border p-2">성명</th>
-                            <th class="border p-2">직종</th>
-                            <th class="border p-2">생일</th>
-                            <th class="border p-2">출근시간</th>
-                            <th class="border p-2">퇴근시간</th>
-                            <th class="border p-2">입사일</th>
-                            <th class="border p-2">총부여</th>
-                            <th class="border p-2 bg-rose-50 text-rose-700">사용</th>
-                            <th class="border p-2 bg-emerald-50 text-emerald-700">잔여</th>
-                            <th class="border p-2 no-print w-16">관리</th>
+                            <th class="border p-2">성명</th><th class="border p-2">직종</th><th class="border p-2">생일</th><th class="border p-2">입사일</th><th class="border p-2 bg-pink-100 text-pink-900">총부여일수 (수정가능)</th><th class="border p-2 bg-rose-50 text-rose-700">사용일수</th><th class="border p-2 bg-emerald-50 text-emerald-700">잔여일수</th><th class="border p-2 no-print w-16">관리</th>
                         </tr>
                     </thead>
                     <tbody id="leave-tbody" class="text-center"></tbody>
                 </table>
             </div>
-
             <table class="staff-sign-table">
                 <thead>
                     <tr><th colspan="12" class="bg-slate-100 font-bold text-center py-1" id="leave-sign-title">연월차대장 확인란</th></tr>
                     <tr id="leave-sign-header"></tr>
                 </thead>
-                <tbody><tr id="leave-sign-body" style="height: 30px;"></tr></tbody>
+                <tbody><tr id="leave-sign-body" style="height: 25px;"></tr></tbody>
             </table>
         </div>
 
         <!-- 복지대장 탭 -->
-        <div id="tab-welfare" class="tab-content bg-white p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
+        <div id="tab-welfare" class="tab-content bg-white p-4 sm:p-6 rounded-3xl shadow-xl border border-pink-100/40 hidden">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 pb-3 border-b no-print">
                 <div class="flex items-center gap-3">
-                    <h2 class="text-xl font-black text-slate-900">💖 교직원 복지 및 건강검진·특전 관리대장</h2>
+                    <h2 class="text-2xl font-black text-slate-900">💖 교직원 복지 및 건강검진·특전 관리대장</h2>
                     <select id="welfare-filter-teacher" onchange="renderWelfare()" class="bg-rose-50 border border-rose-200 rounded-xl p-2 text-xs font-bold text-rose-900">
                         <option value="ALL">전체 교직원 보기</option>
                     </select>
                 </div>
-                <div class="flex items-center gap-2 flex-wrap">
-                    <input type="text" id="new-welfare-name" placeholder="교사 성명" class="bg-rose-50 border rounded-xl px-2 py-1.5 text-xs font-bold w-24">
-                    <input type="text" id="new-welfare-item" placeholder="복지내용/특전" class="bg-rose-50 border rounded-xl px-2 py-1.5 text-xs font-bold w-32">
-                    <input type="text" id="new-welfare-pt" placeholder="복지포인트" class="bg-rose-50 border rounded-xl px-2 py-1.5 text-xs font-bold w-28">
-                    <button onclick="addWelfareRow()" class="px-3 py-1.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl text-xs font-black shadow-md">복지항목 추가</button>
-                </div>
+                <!-- 복지 항목 추가 버튼 영역 -->
+                <button onclick="openWelfareModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl text-xs font-black shadow-md">
+                    <i class="fa-solid fa-plus mr-1"></i> 복지 항목 추가
+                </button>
             </div>
-            <div class="overflow-x-auto mb-6">
+            <div class="overflow-x-auto mb-4">
                 <table class="w-full text-xs border-collapse border border-slate-200">
                     <thead>
                         <tr class="bg-rose-50 text-rose-900 font-bold text-center">
-                            <th class="border p-2">성명</th>
-                            <th class="border p-2">직종</th>
-                            <th class="border p-2">생일</th>
-                            <th class="border p-2">입사일</th>
-                            <th class="border p-2">퇴사일</th>
-                            <th class="border p-2">건강검진일</th>
-                            <th class="border p-2">복지포인트</th>
-                            <th class="border p-2">특전 / 복지내용</th>
-                            <th class="border p-2 no-print w-16">관리</th>
+                            <th class="border p-2">성명</th><th class="border p-2">직종</th><th class="border p-2">건강검진일</th><th class="border p-2">복지포인트</th><th class="border p-2">특전 / 복지내용</th><th class="border p-2 no-print w-24">관리</th>
                         </tr>
                     </thead>
                     <tbody id="welfare-tbody" class="text-center"></tbody>
                 </table>
             </div>
-
             <table class="staff-sign-table">
                 <thead>
                     <tr><th colspan="12" class="bg-slate-100 font-bold text-center py-1" id="welfare-sign-title">복지대장 확인란</th></tr>
                     <tr id="welfare-sign-header"></tr>
                 </thead>
-                <tbody><tr id="welfare-sign-body" style="height: 30px;"></tr></tbody>
+                <tbody><tr id="welfare-sign-body" style="height: 25px;"></tr></tbody>
             </table>
         </div>
     </main>
 
-    <!-- 당직 수정 모달 -->
+    <!-- 복지 항목 추가/수정 모달 -->
+    <div id="welfare-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center hidden z-50 no-print">
+        <div class="bg-white rounded-2xl max-w-sm w-full mx-4 p-5 shadow-xl border">
+            <div class="flex justify-between items-center pb-2 border-b mb-3">
+                <h3 class="font-bold text-slate-900 text-sm" id="welfare-modal-title">💖 복지 항목 등록 및 수정</h3>
+                <button onclick="closeWelfareModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <input type="hidden" id="welfare-modal-idx" value="-1">
+            <div class="flex flex-col gap-2.5">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 mb-1">성명</label>
+                    <select id="welfare-modal-name" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold"></select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 mb-1">건강검진일 / 상태</label>
+                    <input type="text" id="welfare-modal-checkup" value="2026-10-15 완료" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 mb-1">복지포인트</label>
+                    <input type="text" id="welfare-modal-pt" value="400,000원" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 mb-1">특전 / 복지내용</label>
+                    <input type="text" id="welfare-modal-item" value="건강검진 지원" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold">
+                </div>
+                <button onclick="saveWelfareItem()" class="w-full py-2.5 bg-rose-500 text-white rounded-xl text-xs font-black shadow-md mt-2">저장하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 개별 당직 수정 모달 -->
     <div id="edit-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center hidden z-50 no-print">
         <div class="bg-white rounded-2xl max-w-sm w-full mx-4 p-5 shadow-xl border">
             <div class="flex justify-between items-center pb-2 border-b mb-3">
-                <h3 class="font-bold text-slate-900 text-sm">🗓️ 당직 근무자 배정 변경 및 추가</h3>
+                <h3 class="font-bold text-slate-900 text-sm">🗓️ 당직 근무자 배정 변경</h3>
                 <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <p id="modal-date-info" class="text-xs font-black text-pink-600 mb-3 bg-pink-50 p-2 rounded-lg"></p>
@@ -529,112 +489,117 @@
                 <label class="block text-[10px] font-black text-slate-500 mb-1" id="modal-slot-label"></label>
                 <select id="modal-teacher-select" class="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold"></select>
             </div>
-            <div class="flex gap-2 mb-2">
+            <div class="flex gap-2">
                 <button onclick="saveModalAssignment()" class="flex-1 py-2.5 bg-pink-500 text-white rounded-xl text-xs font-black shadow-md">변경 저장</button>
                 <button onclick="closeModal()" class="py-2.5 px-4 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold">취소</button>
             </div>
-            <button onclick="addDutySlotToDate()" class="w-full py-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold">+ 오후당직2 슬롯 추가</button>
         </div>
     </div>
 
-    <!-- 행사 등록 및 수정 모달 -->
+    <!-- 날짜별 전체 일괄 수정 모달 -->
+    <div id="duty-batch-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center hidden z-50 no-print">
+        <div class="bg-white rounded-2xl max-w-4xl w-full mx-4 p-6 shadow-2xl border flex flex-col max-h-[90vh]">
+            <div class="flex justify-between items-center pb-3 border-b mb-3">
+                <h3 class="font-black text-slate-900 text-base" id="batch-modal-title">📋 날짜별 당직 전체 일괄 수정</h3>
+                <button onclick="closeDutyBatchModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="overflow-y-auto flex-1 border rounded-xl p-2 mb-4 bg-slate-50">
+                <table class="w-full text-xs border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-pink-50 text-pink-900 font-bold text-center sticky top-0 z-10">
+                            <th class="border p-2">날짜 (요일)</th><th class="border p-2">오전당직1</th><th class="border p-2">오전당직2</th><th class="border p-2">오후당직1</th><th class="border p-2">오후당직2</th>
+                        </tr>
+                    </thead>
+                    <tbody id="batch-tbody" class="text-center"></tbody>
+                </table>
+            </div>
+            <div class="flex gap-3 justify-end pt-2 border-t">
+                <button onclick="saveDutyBatch()" class="px-6 py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-black shadow-md hover:bg-indigo-700 transition">전체 변경 내용 저장</button>
+                <button onclick="closeDutyBatchModal()" class="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 당직 시간 수정 모달 -->
+    <div id="duty-time-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center hidden z-50 no-print">
+        <div class="bg-white rounded-2xl max-w-md w-full mx-4 p-5 shadow-xl border">
+            <div class="flex justify-between items-center pb-2 border-b mb-3">
+                <h3 class="font-bold text-slate-900 text-sm" id="duty-time-modal-title">⏰ 당직별 근무 시간 설정</h3>
+                <button onclick="closeDutyTimeModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="flex flex-col gap-3 mb-4">
+                <div><label class="block text-[11px] font-black text-pink-700 mb-1">오전당직1 시간</label><input type="text" id="input-time-0" class="w-full bg-pink-50 border rounded-xl p-2 text-xs font-bold font-mono" value="07:30~16:30"></div>
+                <div><label class="block text-[11px] font-black text-sky-700 mb-1">오전당직2 시간</label><input type="text" id="input-time-1" class="w-full bg-sky-50 border rounded-xl p-2 text-xs font-bold font-mono" value="08:00~17:00"></div>
+                <div><label class="block text-[11px] font-black text-purple-700 mb-1">오후당직1 시간</label><input type="text" id="input-time-2" class="w-full bg-purple-50 border rounded-xl p-2 text-xs font-bold font-mono" value="09:00~18:30"></div>
+                <div><label class="block text-[11px] font-black text-orange-700 mb-1">오후당직2 시간</label><input type="text" id="input-time-3" class="w-full bg-orange-50 border rounded-xl p-2 text-xs font-bold font-mono" value="09:30~19:30"></div>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="saveDutyTimes()" class="flex-1 py-2.5 bg-pink-500 text-white rounded-xl text-xs font-black shadow-md">시간 변경 저장</button>
+                <button onclick="closeDutyTimeModal()" class="py-2.5 px-4 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 행사 등록 모달 -->
     <div id="schedule-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center hidden z-50 no-print">
         <div class="bg-white rounded-2xl max-w-lg w-full mx-4 p-5 shadow-xl border">
             <div class="flex justify-between items-center pb-2 border-b mb-3">
-                <h3 class="font-bold text-slate-900 text-sm">🎈 행사 일정 관리 (다중 등록 가능)</h3>
+                <h3 class="font-bold text-slate-900 text-sm">🎈 행사 일정 관리</h3>
                 <button onclick="closeScheduleModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <p id="schedule-modal-date-info" class="text-xs font-black text-pink-600 mb-3 bg-pink-50 p-2 rounded-lg font-mono"></p>
-            
             <div class="mb-4">
                 <label class="block text-[10px] font-black text-slate-500 mb-1">등록된 행사 목록</label>
                 <div id="schedule-item-list" class="max-h-40 overflow-y-auto flex flex-col gap-2 border border-slate-200 p-2 rounded-xl bg-slate-50"></div>
             </div>
-
             <div class="border-t pt-3 mb-4">
                 <label class="block text-[10px] font-black text-pink-600 mb-1">➕ 새 행사 추가하기</label>
                 <div class="grid grid-cols-3 gap-2 mb-2">
                     <select id="schedule-modal-category" class="col-span-1 bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold">
-                        <option value="원내행사">원내행사</option>
-                        <option value="특별활동">특별활동</option>
-                        <option value="생일잔치">생일잔치</option>
-                        <option value="현장학습">현장학습</option>
-                        <option value="부모상담">부모상담</option>
-                        <option value="소방대피">소방대피</option>
-                        <option value="운동회">운동회</option>
-                        <option value="교사회의">교사회의</option>
-                        <option value="운영위원회">운영위원회</option>
-                        <option value="OT">OT</option>
-                        <option value="수료및졸업">수료및졸업</option>
-                        <option value="기타">기타</option>
+                        <option value="원내행사">원내행사</option><option value="특별활동">특별활동</option><option value="생일잔치">생일잔치</option><option value="현장학습">현장학습</option><option value="부모상담">부모상담</option><option value="소방대피">소방대피</option><option value="교사회의">교사회의</option>
                     </select>
                     <input type="text" id="schedule-modal-title" placeholder="행사 내용 입력" class="col-span-2 bg-white border border-slate-200 rounded-xl p-2 text-xs font-bold">
                 </div>
                 <button onclick="addNewScheduleItem()" class="w-full py-2 bg-pink-500 text-white rounded-xl text-xs font-black shadow-md">+ 이 날짜에 행사 추가</button>
             </div>
-
-            <div class="flex justify-end">
-                <button onclick="closeScheduleModal()" class="py-2 px-5 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold">닫기</button>
-            </div>
+            <div class="flex justify-end"><button onclick="closeScheduleModal()" class="py-2 px-5 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold">닫기</button></div>
         </div>
     </div>
 
     <script>
-        let currentYear = 2026;
-        let currentMonth = 7;
-        let scheduleYear = 2026;
-        let scheduleMonth = 7;
-        let activeTabId = 'tab-schedule';
+        let currentYear = 2026, currentMonth = 7, scheduleYear = 2026, scheduleMonth = 7, activeTabId = 'tab-duty';
+        let monthlyDutyTimes = {};
 
         let staffProfiles = {
-            "김윤경": { role: "원장", joinDate: "2018-03-01", resignDate: "", birthDate: "1975-05-12", welfarePt: "500,000원", workStart: "09:00", workEnd: "18:00" },
-            "정지혜": { role: "보육교사", joinDate: "2022-05-10", resignDate: "", birthDate: "1990-07-20", welfarePt: "400,000원", workStart: "09:00", workEnd: "18:00" },
-            "이혜빈": { role: "보육교사", joinDate: "2023-03-01", resignDate: "", birthDate: "1992-07-22", welfarePt: "400,000원", workStart: "09:00", workEnd: "18:00" },
-            "홍여진": { role: "보육교사", joinDate: "2021-09-01", resignDate: "", birthDate: "1988-11-05", welfarePt: "400,000원", workStart: "09:00", workEnd: "18:00" },
-            "어영경": { role: "보육교사", joinDate: "2024-03-01", resignDate: "", birthDate: "1994-01-18", welfarePt: "400,000원", workStart: "09:00", workEnd: "18:00" },
-            "김민경": { role: "보육교사", joinDate: "2025-02-15", resignDate: "", birthDate: "1996-09-30", welfarePt: "400,000원", workStart: "09:00", workEnd: "18:00" },
-            "최옥희": { role: "보육교사", joinDate: "2019-03-01", resignDate: "", birthDate: "1985-12-03", welfarePt: "400,000원", workStart: "09:00", workEnd: "18:00" },
-            "봉은영": { role: "보육교사", joinDate: "2023-11-01", resignDate: "", birthDate: "1991-06-14", welfarePt: "400,000원", workStart: "09:00", workEnd: "18:00" },
-            "김소희": { role: "연장반교사", joinDate: "2024-07-20", resignDate: "", birthDate: "1993-08-25", welfarePt: "350,000원", workStart: "13:30", workEnd: "19:30" },
-            "오보조": { role: "보조교사", joinDate: "2024-03-01", resignDate: "", birthDate: "1992-02-10", welfarePt: "300,000원", workStart: "10:00", workEnd: "15:00" },
-            "진복남": { role: "조리사", joinDate: "2020-05-01", resignDate: "", birthDate: "1982-04-10", welfarePt: "300,000원", workStart: "08:30", workEnd: "17:30" }
+            "김윤경": { role: "원장", joinDate: "2026-07-01", resignDate: "", birthDate: "1979-12-30" },
+            "정지혜": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1985-12-09" },
+            "이혜빈": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1999-08-21" },
+            "홍여진": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1980-04-09" },
+            "어영경": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1999-01-16" },
+            "김민경": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1999-10-05" },
+            "최옥희": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1992-03-05" },
+            "봉은영": { role: "보육교사", joinDate: "2026-07-01", resignDate: "", birthDate: "1984-04-16" },
+            "김소희": { role: "연장반교사", joinDate: "2026-07-20", resignDate: "", birthDate: "1996-07-01" },
+            "진복남": { role: "조리사", joinDate: "2026-07-01", resignDate: "", birthDate: "1964-07-20" }
         };
+
+        let customLeaveGrants = {};
 
         let welfareCustomList = [
             { id: 1, name: "김윤경", checkup: "2026-10-15 완료", item: "원장 특별 복지", pt: "500,000원" },
-            { id: 2, name: "정지혜", checkup: "2026-10-15 완료", item: "건강검진 지원", pt: "400,000원" },
-            { id: 3, name: "이혜빈", checkup: "2026-10-15 완료", item: "건강검진 지원", pt: "400,000원" },
-            { id: 4, name: "홍여진", checkup: "2026-10-15 완료", item: "건강검진 지원", pt: "400,000원" },
-            { id: 5, name: "어영경", checkup: "2026-10-15 완료", item: "건강검진 지원", pt: "400,000원" },
-            { id: 6, name: "김민경", checkup: "2026-10-15 완료", item: "건강검진 지원", pt: "400,000원" },
-            { id: 7, name: "최옥희", checkup: "2026-10-15 완료", item: "건강검진 지원", pt: "400,000원" },
-            { id: 8, name: "봉은영", checkup: "2026-10-15 완료", item: "건강검진 지원", pt: "400,000원" },
-            { id: 9, name: "김소희", checkup: "2026-10-15 완료", item: "연장반 복지포인트", pt: "350,000원" },
-            { id: 10, name: "오보조", checkup: "2026-10-15 완료", item: "보조교사 복지포인트", pt: "300,000원" },
-            { id: 11, name: "진복남", checkup: "2026-10-15 완료", item: "조리사 복지포인트", pt: "300,000원" }
+          
         ];
 
         const holidays = {
             "2026-07-17": "제헌절", "2026-08-15": "광복절", "2026-08-17": "대체공휴일", "2026-09-24": "추석 연휴", "2026-09-25": "추석",
-            "2026-09-26": "추석 연휴", "2026-09-28": "대체공휴일", "2026-10-03": "개천절", "2026-10-05": "대체공휴일",
-            "2026-10-09": "한글날", "2026-12-25": "성탄절", "2027-01-01": "신정", "2027-02-06": "설날 연휴",
-            "2027-02-07": "설날", "2027-02-08": "설날 연휴", "2027-02-09": "대체공휴일"
+            "2026-09-26": "추석 연휴", "2026-10-03": "개천절", "2026-10-05": "대체공휴일", "2026-10-09": "한글날", "2026-12-25": "성탄절", 
+            "2027-01-01": "새해", "2027-02-06": "설날 연휴", "2027-02-07": "설날", "2027-02-08": "설날 연휴", "2027-02-09": "대체공휴일"
         };
 
         let scheduleDatabase = {
             "2026-07-03": [{ id: 1, category: "생일잔치", title: "7월 생일잔치 파티" }],
-            "2026-07-08": [
-                { id: 1, category: "소방대피", title: "전국 합동 소방 대피 훈련" },
-                { id: 2, category: "원내행사", title: "오후 실내 안전 교육" }
-            ],
-            "2026-07-10": [{ id: 1, category: "현장학습", title: "여름철 물놀이장 현장체험학습" }],
-            "2026-07-15": [{ id: 1, category: "특별활동", title: "뮤지컬 인형극 관람" }],
-            "2026-07-20": [
-                { id: 1, category: "부모상담", title: "여름학기 학부모 개별 상담 주간" },
-                { id: 2, category: "교사회의", title: "상담 주간 사전 교사 회의" }
-            ],
-            "2026-07-22": [{ id: 1, category: "교사회의", title: "월간 평가 및 안전 교육 회의" }],
-            "2026-07-28": [{ id: 1, category: "원내행사", title: "여름 보디페인팅 놀이" }]
+            "2026-07-08": [{ id: 1, category: "소방대피", title: "전국 합동 소방 대피 훈련" }],
+            "2026-07-10": [{ id: 1, category: "현장학습", title: "물놀이장 현장체험학습" }]
         };
 
         const exactJulyData = {
@@ -644,38 +609,24 @@
             "2026-07-09": ["이혜빈", "봉은영", "정지혜", "김민경"], "2026-07-10": ["최옥희", "홍여진", "이혜빈", "어영경"],
             "2026-07-13": ["김민경", "정지혜", "최옥희", "봉은영"], "2026-07-14": ["어영경", "정지혜", "홍여진", "봉은영"],
             "2026-07-15": ["최옥희", "어영경", "김민경", "이혜빈"], "2026-07-16": ["봉은영", "최옥희", "홍여진", "어영경"],
-            "2026-07-17": ["-", "-", "-", "-"], "2026-07-20": ["홍여진", "김민경", "정지혜"],
-            "2026-07-21": ["이혜빈", "홍여진", "봉은영"], "2026-07-22": ["어영경", "이혜빈", "김민경"],
-            "2026-07-23": ["정지혜", "최옥희", "홍여진"], "2026-07-24": ["김민경", "봉은영", "어영경"],
-            "2026-07-27": ["이혜빈", "홍여진", "정지혜"], "2026-07-28": ["최옥희", "김민경", "봉은영"],
-            "2026-07-29": ["어영경", "이혜빈", "최옥희"], "2026-07-30": ["정지혜", "홍여진", "봉은영"],
-            "2026-07-31": ["홍여진", "어영경", "김민경"]
+            "2026-07-17": ["-", "-", "-", "-"], "2026-07-20": ["홍여진", "김민경", "정지혜", "이혜빈"],
+            "2026-07-21": ["이혜빈", "홍여진", "봉은영", "최옥희"], "2026-07-22": ["어영경", "이혜빈", "김민경", "정지혜"],
+            "2026-07-23": ["정지혜", "최옥희", "홍여진", "어영경"], "2026-07-24": ["김민경", "봉은영", "어영경", "홍여진"],
+            "2026-07-27": ["이혜빈", "홍여진", "정지혜", "김민경"], "2026-07-28": ["최옥희", "김민경", "봉은영", "어영경"],
+            "2026-07-29": ["어영경", "이혜빈", "최옥희", "정지혜"], "2026-07-30": ["정지혜", "홍여진", "봉은영", "김민경"],
+            "2026-07-31": ["홍여진", "어영경", "김민경", "이혜빈"]
         };
 
-        let database = { calendar: {}, statusLeave: [], profiles: staffProfiles, welfareList: welfareCustomList, schedule: scheduleDatabase };
-        let currentModalKey = "";
-        let currentModalSlotIdx = 0;
-        let selectedScheduleKey = "";
+        let database = { calendar: {}, statusLeave: [], profiles: staffProfiles, welfareList: welfareCustomList, schedule: scheduleDatabase, monthlyDutyTimes: {}, customGrants: {} };
+        let currentModalKey = "", currentModalSlotIdx = 0, selectedScheduleKey = "";
 
         const categoryColors = {
-            "원내행사": "bg-pink-100 text-pink-800 border-pink-200",
-            "특별활동": "bg-purple-100 text-purple-800 border-purple-200",
-            "생일잔치": "bg-rose-100 text-rose-800 border-rose-200",
-            "현장학습": "bg-emerald-100 text-emerald-800 border-emerald-200",
-            "부모상담": "bg-amber-100 text-amber-800 border-amber-200",
-            "소방대피": "bg-red-100 text-red-800 border-red-200",
-            "운동회": "bg-orange-100 text-orange-800 border-orange-200",
-            "교사회의": "bg-indigo-100 text-indigo-800 border-indigo-200",
-            "운영위원회": "bg-blue-100 text-blue-800 border-blue-200",
-            "교직원생일": "bg-cyan-100 text-cyan-800 border-cyan-200",
-            "연차반차": "bg-indigo-50 text-indigo-700 border-indigo-200",
-            "OT": "bg-teal-100 text-teal-800 border-teal-200",
-            "수료및졸업": "bg-violet-100 text-violet-800 border-violet-200",
-            "기타": "bg-slate-100 text-slate-800 border-slate-200"
+            "원내행사": "bg-pink-100 text-pink-800 border-pink-200", "특별활동": "bg-purple-100 text-purple-800 border-purple-200",
+            "생일잔치": "bg-rose-100 text-rose-800 border-rose-200", "현장학습": "bg-emerald-100 text-emerald-800 border-emerald-200",
+            "부모상담": "bg-amber-100 text-amber-800 border-amber-200", "소방대피": "bg-red-100 text-red-800 border-red-200", "교사회의": "bg-indigo-100 text-indigo-800 border-indigo-200"
         };
 
         function getAllStaff() { return Object.keys(staffProfiles); }
-
         function getActiveStaffForMonth(y, m) {
             const firstDayStr = `${y}-${String(m).padStart(2, '0')}-01`;
             const lastDay = new Date(y, m, 0).getDate();
@@ -683,20 +634,16 @@
             return getAllStaff().filter(t => {
                 const p = staffProfiles[t];
                 if (!p) return false;
-                const join = p.joinDate || "2000-01-01";
-                const resign = p.resignDate || "9999-12-31";
-                if (resign < firstDayStr || join > lastDayStr) return false;
-                return true;
+                return !((p.resignDate && p.resignDate < firstDayStr) || (p.joinDate > lastDayStr));
             });
         }
-
+        function getCoreTeachersForMonth(y, m) {
+            return getActiveStaffForMonth(y, m).filter(t => !["연장반교사", "보조교사", "조리사"].includes(staffProfiles[t]?.role));
+        }
         function getActiveDutyTeachers(y, m) {
-            return getActiveStaffForMonth(y, m).filter(t => !["김윤경", "김소희", "오보조", "진복남", "미배정"].includes(t));
+            return getActiveStaffForMonth(y, m).filter(t => !["김윤경", "진복남", "미배정"].includes(t));
         }
-
-        function formatDateStr(y, m, d) {
-            return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-        }
+        function formatDateStr(y, m, d) { return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`; }
 
         document.addEventListener("DOMContentLoaded", function() {
             initDatabase();
@@ -704,12 +651,14 @@
         });
 
         function initDatabase() {
-            const saved = localStorage.getItem("orijin_system_allstaff_v26_nototal_final");
+            const saved = localStorage.getItem("orijin_system_pdf_style_v11");
             if (saved) {
                 database = JSON.parse(saved);
                 if(database.profiles) staffProfiles = database.profiles;
                 if(database.welfareList) welfareCustomList = database.welfareList;
                 if(database.schedule) scheduleDatabase = database.schedule;
+                if(database.monthlyDutyTimes) monthlyDutyTimes = database.monthlyDutyTimes;
+                if(database.customGrants) customLeaveGrants = database.customGrants;
             } else {
                 generateAllMonthsData();
                 saveToStorage();
@@ -720,38 +669,27 @@
         function generateAllMonthsData() {
             database.calendar = {};
             database.statusLeave = database.statusLeave || [];
-            database.schedule = scheduleDatabase;
-            for(let d=1; d<=31; d++) {
-                const key = formatDateStr(2026, 7, d);
-                const dt = new Date(2026, 6, d);
-                const dow = dt.getDay();
-                if(dow === 0 || dow === 6 || holidays[key]) {
-                    database.calendar[key] = { duties: d <= 19 ? ["-", "-", "-", "-"] : ["-", "-", "-"], isHoliday: true };
-                } else {
-                    database.calendar[key] = { duties: exactJulyData[key] || (d <= 19 ? ["-", "-", "-", "-"] : ["-", "-", "-"]), isHoliday: false };
+            let startY = 2026, startM = 7, endY = 2030, endM = 12;
+            let rotIdx = 0, curY = startY, curM = startM;
+            while (curY < endY || (curY === endY && curM <= endM)) {
+                const dtTeachers = getActiveDutyTeachers(curY, curM);
+                const lastDay = new Date(curY, curM, 0).getDate();
+                for(let d=1; d<=lastDay; d++) {
+                    const key = formatDateStr(curY, curM, d);
+                    const dt = new Date(curY, curM-1, d);
+                    const dow = dt.getDay();
+                    if(curY === 2026 && curM === 7) {
+                        database.calendar[key] = { duties: (dow === 0 || dow === 6 || holidays[key]) ? ["-", "-", "-", "-"] : (exactJulyData[key] || ["-", "-", "-", "-"]), isHoliday: dow === 0 || dow === 6 || !!holidays[key], forcedWork: false };
+                    } else {
+                        if(dow === 0 || dow === 6 || holidays[key] || dtTeachers.length === 0) {
+                            database.calendar[key] = { duties: ["-", "-", "-", "-"], isHoliday: true, forcedWork: false };
+                        } else {
+                            database.calendar[key] = { duties: [dtTeachers[rotIdx % dtTeachers.length], dtTeachers[(rotIdx + 1) % dtTeachers.length], dtTeachers[(rotIdx + 2) % dtTeachers.length], dtTeachers[(rotIdx + 3) % dtTeachers.length]], isHoliday: false, forcedWork: false };
+                            rotIdx = (rotIdx + 1) % dtTeachers.length;
+                        }
+                    }
                 }
-            }
-            let rotIdx = 0;
-            for(let m=8; m<=12; m++) { generateMonth(2026, m, rotIdx); rotIdx = (rotIdx + 6) % getActiveDutyTeachers(2026, m).length; }
-            for(let m=1; m<=2; m++) { generateMonth(2027, m, rotIdx); rotIdx = (rotIdx + 6) % getActiveDutyTeachers(2027, m).length; }
-        }
-
-        function generateMonth(y, m, startIndex) {
-            const dtTeachers = getActiveDutyTeachers(y, m);
-            const lastDay = new Date(y, m, 0).getDate();
-            for(let d=1; d<=lastDay; d++) {
-                const key = formatDateStr(y, m, d);
-                const dt = new Date(y, m-1, d);
-                const dow = dt.getDay();
-                if(dow === 0 || dow === 6 || holidays[key] || dtTeachers.length === 0) {
-                    database.calendar[key] = { duties: ["-", "-", "-"], isHoliday: true };
-                } else {
-                    let t1 = dtTeachers[startIndex % dtTeachers.length];
-                    let t2 = dtTeachers[(startIndex + 1) % dtTeachers.length];
-                    let t3 = dtTeachers[(startIndex + 2) % dtTeachers.length];
-                    database.calendar[key] = { duties: [t1, t2, t3], isHoliday: false };
-                    startIndex = (startIndex + 1) % dtTeachers.length;
-                }
+                curM++; if(curM > 12) { curM = 1; curY++; }
             }
         }
 
@@ -759,138 +697,207 @@
             database.profiles = staffProfiles;
             database.welfareList = welfareCustomList;
             database.schedule = scheduleDatabase;
-            localStorage.setItem("orijin_system_allstaff_v26_nototal_final", JSON.stringify(database));
+            database.monthlyDutyTimes = monthlyDutyTimes;
+            database.customGrants = customLeaveGrants;
+            localStorage.setItem("orijin_system_pdf_style_v11", JSON.stringify(database));
         }
 
-        function resetToDefault() {
-            if(confirm("모든 데이터를 초기화하시겠습니까?")) {
-                localStorage.removeItem("orijin_system_allstaff_v26_nototal_final");
-                initDatabase();
-                renderAll();
-                alert("초기화되었습니다.");
+        function getDutyTimesForMonth(y, m) {
+            const key = `${y}-${m}`;
+            if (!monthlyDutyTimes[key]) monthlyDutyTimes[key] = ["07:30~16:30", "08:00~17:00", "09:00~18:30", "09:30~19:30"];
+            return monthlyDutyTimes[key];
+        }
+
+        // 공휴일/대체공휴일 ↔ 평일 수동 전환 토글 (클릭 시 대체공휴일 글자 제거 및 평일 반영)
+        function toggleManualHoliday(key) {
+            if (!database.calendar[key]) database.calendar[key] = { duties: ["-", "-", "-", "-"], isHoliday: false, forcedWork: false };
+            
+            // 현재 상태가 휴일(공휴일/주말/수동휴일)인 경우 -> 평일로 전환
+            if (database.calendar[key].isHoliday) {
+                database.calendar[key].isHoliday = false;
+                database.calendar[key].forcedWork = true; // 평일로 강제 전환됨 표시
+                // 평일이 되었으므로 기본 당직자 자동 배정 (가능한 경우)
+                const parts = key.split('-');
+                const dtTeachers = getActiveDutyTeachers(Number(parts[0]), Number(parts[1]));
+                if(dtTeachers.length >= 4) {
+                    database.calendar[key].duties = [dtTeachers[0], dtTeachers[1], dtTeachers[2], dtTeachers[3]];
+                }
+            } else {
+                // 평일인 경우 -> 휴일로 전환
+                database.calendar[key].isHoliday = true;
+                database.calendar[key].forcedWork = false;
+                database.calendar[key].duties = ["-", "-", "-", "-"];
             }
+            saveToStorage();
+            renderAll();
+        }
+
+        function openDutyTimeModal() {
+            const times = getDutyTimesForMonth(currentYear, currentMonth);
+            for(let i=0; i<4; i++) document.getElementById(`input-time-${i}`).value = times[i];
+            document.getElementById('duty-time-modal').classList.remove('hidden');
+        }
+        function closeDutyTimeModal() { document.getElementById('duty-time-modal').classList.add('hidden'); }
+        function saveDutyTimes() {
+            monthlyDutyTimes[`${currentYear}-${currentMonth}`] = [
+                document.getElementById('input-time-0').value.trim(), document.getElementById('input-time-1').value.trim(),
+                document.getElementById('input-time-2').value.trim(), document.getElementById('input-time-3').value.trim()
+            ];
+            saveToStorage();
+            updateDutyTimeUI();
+            closeDutyTimeModal();
+        }
+
+        function updateDutyTimeUI() {
+            const times = getDutyTimesForMonth(currentYear, currentMonth);
+            for(let i=0; i<4; i++) {
+                const b = document.getElementById(`badge-time-${i}`); if(b) b.innerText = times[i];
+                const th = document.getElementById(`excel-th-${i}`); if(th) th.innerText = `${["오전당직1", "오전당직2", "오후당직1", "오후당직2"][i]} (${times[i]})`;
+            }
+        }
+
+        function openDutyBatchEditModal() {
+            const tbody = document.getElementById('batch-tbody'); tbody.innerHTML = "";
+            const totalDays = new Date(currentYear, currentMonth, 0).getDate();
+            const staffList = getActiveStaffForMonth(currentYear, currentMonth);
+            const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+            for(let d=1; d<=totalDays; d++) {
+                const key = formatDateStr(currentYear, currentMonth, d);
+                const dow = new Date(currentYear, currentMonth-1, d).getDay();
+                if(!database.calendar[key]) database.calendar[key] = { duties: ["-", "-", "-", "-"], isHoliday: dow===0||dow===6, forcedWork: false };
+                let opts = `<option value="-">-</option>`;
+                staffList.forEach(t => opts += `<option value="${t}">${t}</option>`);
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="border p-2 font-mono font-bold ${dow===0?'text-rose-600':dow===6?'text-indigo-600':''}">${key} (${dayNames[dow]})</td>
+                        <td class="border p-1"><select data-date="${key}" data-slot="0" class="batch-select w-full bg-pink-50/50 border rounded p-1 text-xs font-bold">${opts}</select></td>
+                        <td class="border p-1"><select data-date="${key}" data-slot="1" class="batch-select w-full bg-sky-50/50 border rounded p-1 text-xs font-bold">${opts}</select></td>
+                        <td class="border p-1"><select data-date="${key}" data-slot="2" class="batch-select w-full bg-purple-50/50 border rounded p-1 text-xs font-bold">${opts}</select></td>
+                        <td class="border p-1"><select data-date="${key}" data-slot="3" class="batch-select w-full bg-orange-50/50 border rounded p-1 text-xs font-bold">${opts}</select></td>
+                    </tr>`;
+            }
+            document.querySelectorAll('.batch-select').forEach(sel => {
+                const d = sel.getAttribute('data-date'), s = sel.getAttribute('data-slot');
+                if(database.calendar[d]?.duties[s]) sel.value = database.calendar[d].duties[s];
+            });
+            document.getElementById('duty-batch-modal').classList.remove('hidden');
+        }
+        function closeDutyBatchModal() { document.getElementById('duty-batch-modal').classList.add('hidden'); }
+        function saveDutyBatch() {
+            document.querySelectorAll('.batch-select').forEach(sel => {
+                const d = sel.getAttribute('data-date'), s = Number(sel.getAttribute('data-slot'));
+                if(!database.calendar[d]) database.calendar[d] = { duties: ["-", "-", "-", "-"], isHoliday: false, forcedWork: false };
+                database.calendar[d].duties[s] = sel.value;
+            });
+            saveToStorage(); closeDutyBatchModal(); renderAll();
         }
 
         function addNewStaff() {
             const name = document.getElementById("new-staff-name").value.trim();
             const role = document.getElementById("new-staff-role").value;
-            if(!name) { alert("교사 성명을 입력해주세요."); return; }
+            if(!name) { alert("성명을 입력해주세요."); return; }
             if(staffProfiles[name]) { alert("이미 등록된 성명입니다."); return; }
-            
-            staffProfiles[name] = { role: role, joinDate: "2026-03-01", resignDate: "", birthDate: "1995-01-01", welfarePt: "350,000원", workStart: "09:00", workEnd: "18:00" };
-            welfareCustomList.push({ id: Date.now(), name: name, checkup: "2026-10-15 완료", item: "신규 교직원 복지", pt: "350,000원" });
-
-            saveToStorage();
-            document.getElementById("new-staff-name").value = "";
-            buildSelects();
-            renderAll();
-            alert(`${name} 교직원이 추가되었습니다.`);
+            staffProfiles[name] = { role, joinDate: "2026-03-01", resignDate: "", birthDate: "1995-01-01" };
+            welfareCustomList.push({ id: Date.now(), name, checkup: "2026-10-15 완료", item: "신규 교직원 복지", pt: "350,000원" });
+            saveToStorage(); document.getElementById("new-staff-name").value = "";
+            buildSelects(); renderAll();
         }
 
-        function deleteStaff(name) {
-            if(confirm(`${name} 교직원을 삭제하시겠습니까?`)) {
-                delete staffProfiles[name];
-                saveToStorage();
-                buildSelects();
-                renderAll();
+        function openWelfareModal(idx = -1) {
+            const nameSel = document.getElementById('welfare-modal-name');
+            nameSel.innerHTML = "";
+            getAllStaff().forEach(t => nameSel.innerHTML += `<option value="${t}">${t}</option>`);
+
+            document.getElementById('welfare-modal-idx').value = idx;
+            if (idx >= 0) {
+                const item = welfareCustomList[idx];
+                document.getElementById('welfare-modal-name').value = item.name;
+                document.getElementById('welfare-modal-checkup').value = item.checkup;
+                document.getElementById('welfare-modal-pt').value = item.pt;
+                document.getElementById('welfare-modal-item').value = item.item;
+                document.getElementById('welfare-modal-title').innerText = "💖 복지 항목 수정";
+            } else {
+                document.getElementById('welfare-modal-checkup').value = "2026-10-15 완료";
+                document.getElementById('welfare-modal-pt').value = "400,000원";
+                document.getElementById('welfare-modal-item').value = "건강검진 지원";
+                document.getElementById('welfare-modal-title').innerText = "💖 복지 항목 등록";
+            }
+            document.getElementById('welfare-modal').classList.remove('hidden');
+        }
+        function closeWelfareModal() { document.getElementById('welfare-modal').classList.add('hidden'); }
+        function saveWelfareItem() {
+            const idx = Number(document.getElementById('welfare-modal-idx').value);
+            const data = {
+                id: idx >= 0 ? welfareCustomList[idx].id : Date.now(),
+                name: document.getElementById('welfare-modal-name').value,
+                checkup: document.getElementById('welfare-modal-checkup').value,
+                pt: document.getElementById('welfare-modal-pt').value,
+                item: document.getElementById('welfare-modal-item').value
+            };
+            if (idx >= 0) welfareCustomList[idx] = data;
+            else welfareCustomList.push(data);
+            saveToStorage(); closeWelfareModal(); renderWelfare();
+        }
+        function deleteWelfareItem(idx) {
+            if(confirm("해당 복지 항목을 삭제하시겠습니까?")) {
+                welfareCustomList.splice(idx, 1);
+                saveToStorage(); renderWelfare();
             }
         }
 
-        function addWelfareRow() {
-            const name = document.getElementById("new-welfare-name").value.trim();
-            const item = document.getElementById("new-welfare-item").value.trim();
-            const pt = document.getElementById("new-welfare-pt").value.trim();
-            if(!name || !item) { alert("성명과 복지 내용을 입력해주세요."); return; }
-
-            welfareCustomList.push({ id: Date.now(), name: name, checkup: "2026-10-15 완료", item: item, pt: pt || "350,000원" });
+        function updateCustomLeaveGrant(name, val) {
+            customLeaveGrants[name] = Number(val) || 0;
             saveToStorage();
-            renderWelfare();
-            alert("복지 항목이 추가되었습니다.");
-        }
-
-        function deleteWelfareRow(id) {
-            if(confirm("해당 복지대장 항목을 삭제하시겠습니까?")) {
-                welfareCustomList = welfareCustomList.filter(w => w.id !== id);
-                saveToStorage();
-                renderWelfare();
-            }
         }
 
         function switchTab(tabId) {
             activeTabId = tabId;
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('active-print');
-            });
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('bg-gradient-to-r', 'from-pink-500', 'to-rose-500', 'text-white', 'shadow-md');
-                el.classList.add('text-slate-600', 'hover:bg-pink-50/50');
-            });
+            document.querySelectorAll('.tab-content').forEach(el => { el.classList.add('hidden'); el.classList.remove('active-print'); });
+            document.querySelectorAll('.tab-btn').forEach(el => { el.classList.remove('bg-gradient-to-r', 'from-pink-500', 'to-rose-500', 'text-white', 'shadow-md'); el.classList.add('text-slate-600'); });
             document.getElementById(tabId).classList.remove('hidden');
             document.getElementById(tabId).classList.add('active-print');
             const btn = document.getElementById('btn-' + tabId.replace('tab-', ''));
-            if(btn) {
-                btn.classList.remove('text-slate-600', 'hover:bg-pink-50/50');
-                btn.classList.add('bg-gradient-to-r', 'from-pink-500', 'to-rose-500', 'text-white', 'shadow-md');
-            }
-            updateDocHeaderInfo(tabId);
-            renderAll();
+            if(btn) { btn.classList.remove('text-slate-600'); btn.classList.add('bg-gradient-to-r', 'from-pink-500', 'to-rose-500', 'text-white', 'shadow-md'); }
+            updateDocHeaderInfo(tabId); renderAll();
         }
 
         function updateDocHeaderInfo(tabId) {
             const titles = {
-                'tab-schedule': [`${scheduleYear}년 ${scheduleMonth}월 원내 행사 일정표`, '시립 이음어린이집 월별 행사 일정'],
                 'tab-duty': [`${currentYear}년 ${currentMonth}월 당직근무 편성표`, '시립 이음어린이집 월별 당직표'],
+                'tab-schedule': [`${scheduleYear}년 ${scheduleMonth}월 원내 행사 일정표`, '시립 이음어린이집 월별 행사 일정'],
                 'tab-attendance': ['교직원 출근부', '시립 이음어린이집 교직원 출근 현황'],
-                'tab-status': ['근무상황부', '휴가 및 반차 신청 관리 대장'],
+                'tab-status': ['근무상황부', '휴가 및 반차·경조휴가 신청 관리 대장'],
                 'tab-overtime': [`${currentYear}년 ${currentMonth}월 시간외근무대장`, '시간외 근무 수당 지급 적격자 명부'],
                 'tab-leave': ['연월차 관리대장', '교직원 연차휴가 관리 대장'],
                 'tab-welfare': ['복지 관리대장', '교직원 건강검진 및 복지포인트 지급대장']
             };
             document.getElementById('doc-title').innerText = titles[tabId][0];
             document.getElementById('doc-subtitle').innerText = titles[tabId][1];
-            let activeY = (tabId === 'tab-schedule') ? scheduleYear : currentYear;
-            let activeM = (tabId === 'tab-schedule') ? scheduleMonth : currentMonth;
-            document.getElementById('print-year-label').innerText = `${activeY}년도 ${activeM}월 행정 서류`;
+            let y = (tabId === 'tab-schedule') ? scheduleYear : currentYear;
+            let m = (tabId === 'tab-schedule') ? scheduleMonth : currentMonth;
+            document.getElementById('print-year-label').innerText = `${y}년도 ${m}월 행정 서류`;
         }
 
-        function moveScheduleMonth(direction) {
-            scheduleMonth += direction;
-            if(scheduleMonth > 12) { scheduleMonth = 1; scheduleYear++; }
-            else if(scheduleMonth < 1) { scheduleMonth = 12; scheduleYear--; }
-            updateDocHeaderInfo('tab-schedule');
-            renderScheduleCalendar(scheduleYear, scheduleMonth);
-        }
-
-        function changeMonth(y, m) {
-            currentYear = y; currentMonth = m;
-            updateDocHeaderInfo(activeTabId);
-            renderAll();
-        }
+        function moveScheduleMonth(d) { scheduleMonth += d; if(scheduleMonth > 12){scheduleMonth=1; scheduleYear++;} else if(scheduleMonth < 1){scheduleMonth=12; scheduleYear--;} updateDocHeaderInfo('tab-schedule'); renderScheduleCalendar(scheduleYear, scheduleMonth); }
+        function moveDutyMonth(d) { currentMonth += d; if(currentMonth > 12){currentMonth=1; currentYear++;} else if(currentMonth < 1){currentMonth=12; currentYear--;} updateDocHeaderInfo(activeTabId); renderCalendar(currentYear, currentMonth); }
+        function moveOvertimeMonth(d) { currentMonth += d; if(currentMonth > 12){currentMonth=1; currentYear++;} else if(currentMonth < 1){currentMonth=12; currentYear--;} updateDocHeaderInfo(activeTabId); renderOvertime(); }
 
         function buildSelects() {
             const staffList = getAllStaff();
             ['attendance-teacher-select', 'reg-teacher'].forEach(id => {
                 const sel = document.getElementById(id);
                 if(sel) {
-                    const currentVal = sel.value;
-                    sel.innerHTML = "";
-                    staffList.forEach(t => {
-                        sel.innerHTML += `<option value="${t}">${t} (${staffProfiles[t].role})</option>`;
-                    });
-                    if(staffList.includes(currentVal)) sel.value = currentVal;
+                    const cur = sel.value; sel.innerHTML = "";
+                    staffList.forEach(t => sel.innerHTML += `<option value="${t}">${t} (${staffProfiles[t].role})</option>`);
+                    if(staffList.includes(cur)) sel.value = cur;
                 }
             });
-
             ['status-filter-teacher', 'leave-filter-teacher', 'welfare-filter-teacher'].forEach(id => {
                 const sel = document.getElementById(id);
                 if(sel) {
-                    const currentVal = sel.value;
-                    sel.innerHTML = `<option value="ALL">전체 교직원 보기</option>`;
-                    staffList.forEach(t => {
-                        sel.innerHTML += `<option value="${t}">${t} (${staffProfiles[t].role})</option>`;
-                    });
-                    if(currentVal === 'ALL' || staffList.includes(currentVal)) sel.value = currentVal;
+                    const cur = sel.value; sel.innerHTML = `<option value="ALL">전체 교직원 보기</option>`;
+                    staffList.forEach(t => sel.innerHTML += `<option value="${t}">${t} (${staffProfiles[t].role})</option>`);
+                    if(cur === 'ALL' || staffList.includes(cur)) sel.value = cur;
                 }
             });
         }
@@ -899,260 +906,163 @@
             document.getElementById('schedule-current-label').innerText = `${y}년 ${m}월`;
             const grid = document.getElementById('schedule-calendar-grid');
             const excelTbody = document.getElementById('schedule-excel-tbody');
-            grid.innerHTML = "";
-            excelTbody.innerHTML = "";
-
+            grid.innerHTML = ""; excelTbody.innerHTML = "";
             const firstDayIndex = new Date(y, m-1, 1).getDay();
             const totalDays = new Date(y, m, 0).getDate();
             const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
-            for(let i=0; i<firstDayIndex; i++) {
-                grid.innerHTML += `<div class="bg-slate-50/40 rounded-xl h-24 border border-slate-100"></div>`;
-            }
+            for(let i=0; i<firstDayIndex; i++) grid.innerHTML += `<div class="bg-slate-50/40 rounded-xl h-20 border border-slate-100"></div>`;
 
             for(let d=1; d<=totalDays; d++) {
                 const key = formatDateStr(y, m, d);
-                const dtObj = new Date(y, m-1, d);
-                const dow = dtObj.getDay();
-                const isSat = dow === 6;
-                const isSun = dow === 0;
+                const dayData = database.calendar[key] || { duties: [], isHoliday: false, forcedWork: false };
+                const dow = new Date(y, m-1, d).getDay();
+                
+                // 평일 전환되었고 강제 평일 지정(forcedWork)된 경우 공휴일/대체공휴일 글자 표시 안 함
+                let isEffectiveHoliday = (dow === 0 || dow === 6 || dayData.isHoliday) && !dayData.forcedWork;
+                let holText = isEffectiveHoliday ? (dayData.isHoliday && dow!==0 && dow!==6 ? "수동휴일" : (holidays[key] || (dow===0?"일요일":dow===6?"토요일":""))) : "";
 
                 let items = [...(scheduleDatabase[key] || [])];
 
                 Object.keys(staffProfiles).forEach(tName => {
                     const bStr = staffProfiles[tName].birthDate;
-                    if (bStr) {
-                        const bParts = bStr.split('-');
-                        if (Number(bParts[1]) === m && Number(bParts[2]) === d) {
-                            items.push({ id: 'b-' + tName, category: "교직원생일", title: `🎂 ${tName} 생일` });
-                        }
+                    if (bStr && Number(bStr.split('-')[1]) === m && Number(bStr.split('-')[2]) === d) {
+                        items.push({ id: 'b-' + tName, category: "교직원생일", title: `🎂 ${tName} 생일` });
                     }
                 });
-
-                database.statusLeave.forEach(l => {
-                    if (l.date === key) {
-                        items.push({ id: 'l-' + l.teacher, category: "연차반차", title: `📌 ${l.teacher} ${l.type}` });
-                    }
-                });
+                database.statusLeave.forEach(l => { if (l.date === key) items.push({ id: 'l-' + l.teacher, category: "연차반차", title: `📌 ${l.teacher} ${l.type}` }); });
 
                 let badgesHtml = "";
-                if(items.length > 0) {
-                    items.forEach(item => {
-                        let colorClass = categoryColors[item.category] || "bg-pink-100 text-pink-800 border-pink-200";
-                        badgesHtml += `
-                            <div class="p-1 mb-0.5 rounded-lg border text-[9px] font-black leading-tight ${colorClass}">
-                                <span class="block truncate">${item.title}</span>
-                            </div>
-                        `;
-                        excelTbody.innerHTML += `
-                            <tr class="hover:bg-slate-50">
-                                <td class="border p-1 font-mono">${key}</td>
-                                <td class="border p-1">${dayNames[dow]}</td>
-                                <td class="border p-1 font-bold">[${item.category}] ${item.title}</td>
-                            </tr>
-                        `;
-                    });
-                }
+                items.forEach(item => {
+                    badgesHtml += `<div class="p-0.5 mb-0.5 rounded border text-[9px] font-black leading-tight ${categoryColors[item.category] || "bg-pink-100 text-pink-800"}"><span class="block truncate">${item.title}</span></div>`;
+                });
+
+                excelTbody.innerHTML += `<tr class="hover:bg-slate-50"><td class="border p-1 font-mono">${key}</td><td class="border p-1">${dayNames[dow]}</td><td class="border p-1 font-bold">${holText ? '[' + holText + '] ' : ''}${items.map(i => '[' + i.category + '] ' + i.title).join(', ') || '-'}</td></tr>`;
 
                 grid.innerHTML += `
-                    <div onclick="openScheduleModal('${key}')" class="bg-white rounded-xl h-28 p-1.5 border border-slate-200 flex flex-col justify-between shadow-sm relative group cursor-pointer hover:border-pink-300 transition">
-                        <div class="flex justify-between items-center text-[10px] font-black ${isSun||holidays[key]?'text-rose-500':isSat?'text-indigo-600':'text-slate-700'}">
-                            <span>${d}</span>
-                            <span class="text-[8px] text-slate-400">${holidays[key]||''}</span>
+                    <div class="bg-white rounded-xl h-24 p-1 border border-slate-200 flex flex-col justify-between shadow-sm relative group">
+                        <div class="flex justify-between items-center text-[10px] font-black ${isEffectiveHoliday?'text-rose-500':'text-slate-700'}">
+                            <span onclick="toggleManualHoliday('${key}')" class="cursor-pointer hover:underline bg-slate-100 px-1 rounded" title="클릭하여 휴일/평일 전환">${d} ${dayData.forcedWork ? '✅(평일전환)' : dayData.isHoliday ? '📌' : ''}</span>
+                            <span class="text-[8px] text-rose-600 font-bold">${holText}</span>
                         </div>
-                        <div class="flex-1 overflow-y-auto my-0.5 pr-0.5">
-                            ${badgesHtml || '<div class="text-center text-slate-300 text-[9px] mt-4 no-print opacity-0 group-hover:opacity-100 transition"><i class="fa-solid fa-plus"></i> 추가</div>'}
-                        </div>
-                    </div>
-                `;
+                        <div onclick="openScheduleModal('${key}')" class="flex-1 overflow-y-auto my-0.5 pr-0.5 cursor-pointer">${badgesHtml}</div>
+                    </div>`;
             }
-            renderScheduleSignTable(y, m);
+            renderSignTableCustom('schedule-sign-header', 'schedule-sign-body', y, m, getCoreTeachersForMonth(y, m));
         }
 
-        function renderScheduleSignTable(y, m) {
-            const activeList = getActiveStaffForMonth(y, m);
-            let headerHtml = "";
-            let bodyHtml = "";
-            activeList.forEach(t => {
-                headerHtml += `<th class="border p-1 text-[8px] font-bold">${t}</th>`;
-                bodyHtml += `<td class="border p-1 text-slate-300 text-[8px]">(서명)</td>`;
-            });
-            const sHeader = document.getElementById('schedule-sign-header');
-            const sBody = document.getElementById('schedule-sign-body');
-            if(sHeader && sBody) {
-                sHeader.innerHTML = headerHtml;
-                sBody.innerHTML = bodyHtml;
-            }
+        function renderSignTableCustom(headerId, bodyId, y, m, staffList) {
+            let hHtml = "", bHtml = "";
+            staffList.forEach(t => { hHtml += `<th class="border p-1 text-[9px] font-bold">${t}</th>`; bHtml += `<td class="border p-1 text-slate-300 text-[9px]">(서명)</td>`; });
+            const sh = document.getElementById(headerId), sb = document.getElementById(bodyId);
+            if(sh && sb) { sh.innerHTML = hHtml; sb.innerHTML = bHtml; }
         }
+        function renderSignTableGeneric(headerId, bodyId, y, m) { renderSignTableCustom(headerId, bodyId, y, m, getActiveStaffForMonth(y, m)); }
 
         function openScheduleModal(key) {
             selectedScheduleKey = key;
             document.getElementById('schedule-modal-date-info').innerText = `${key} 행사 일정 관리`;
             renderScheduleModalList();
-            document.getElementById('schedule-modal-title').value = "";
             document.getElementById('schedule-modal').classList.remove('hidden');
         }
-
         function renderScheduleModalList() {
             const listContainer = document.getElementById('schedule-item-list');
             const items = scheduleDatabase[selectedScheduleKey] || [];
-            listContainer.innerHTML = "";
-
-            if(items.length === 0) {
-                listContainer.innerHTML = `<div class="text-xs text-slate-400 text-center py-2">등록된 수동 행사가 없습니다. (생일/연차는 자동 표시됨)</div>`;
-                return;
-            }
-
+            listContainer.innerHTML = items.length === 0 ? `<div class="text-xs text-slate-400 text-center py-2">등록된 행사가 없습니다.</div>` : "";
             items.forEach((item) => {
-                let colorClass = categoryColors[item.category] || "bg-pink-100 text-pink-800";
                 listContainer.innerHTML += `
                     <div class="flex items-center justify-between p-2 rounded-xl border bg-white shadow-sm">
-                        <div class="flex items-center gap-2">
-                            <span class="px-2 py-0.5 rounded-lg text-[10px] font-black ${colorClass}">${item.category}</span>
-                            <span class="text-xs font-bold text-slate-800">${item.title}</span>
-                        </div>
-                        <button onclick="deleteScheduleItem(${item.id})" class="text-rose-500 hover:text-rose-700 text-xs px-2 py-1"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                `;
+                        <div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded-lg text-[10px] font-black ${categoryColors[item.category] || ''}">${item.category}</span><span class="text-xs font-bold text-slate-800">${item.title}</span></div>
+                        <button onclick="deleteScheduleItem(${item.id})" class="text-rose-500 text-xs px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                    </div>`;
             });
         }
-
         function addNewScheduleItem() {
             const category = document.getElementById('schedule-modal-category').value;
             const title = document.getElementById('schedule-modal-title').value.trim();
-            if(!title) { alert("행사 내용을 입력해주세요."); return; }
-
-            if(!scheduleDatabase[selectedScheduleKey]) {
-                scheduleDatabase[selectedScheduleKey] = [];
-            }
+            if(!title) { alert("내용을 입력하세요."); return; }
+            if(!scheduleDatabase[selectedScheduleKey]) scheduleDatabase[selectedScheduleKey] = [];
             scheduleDatabase[selectedScheduleKey].push({ id: Date.now(), category, title });
-            saveToStorage();
-            document.getElementById('schedule-modal-title').value = "";
-            renderScheduleModalList();
-            renderScheduleCalendar(scheduleYear, scheduleMonth);
+            saveToStorage(); document.getElementById('schedule-modal-title').value = "";
+            renderScheduleModalList(); renderScheduleCalendar(scheduleYear, scheduleMonth);
         }
-
         function deleteScheduleItem(id) {
-            if(scheduleDatabase[selectedScheduleKey]) {
-                scheduleDatabase[selectedScheduleKey] = scheduleDatabase[selectedScheduleKey].filter(item => item.id !== id);
-                if(scheduleDatabase[selectedScheduleKey].length === 0) delete scheduleDatabase[selectedScheduleKey];
-                saveToStorage();
-                renderScheduleModalList();
-                renderScheduleCalendar(scheduleYear, scheduleMonth);
-            }
+            scheduleDatabase[selectedScheduleKey] = scheduleDatabase[selectedScheduleKey].filter(i => i.id !== id);
+            if(scheduleDatabase[selectedScheduleKey].length === 0) delete scheduleDatabase[selectedScheduleKey];
+            saveToStorage(); renderScheduleModalList(); renderScheduleCalendar(scheduleYear, scheduleMonth);
         }
-
-        function closeScheduleModal() {
-            document.getElementById('schedule-modal').classList.add('hidden');
-        }
+        function closeScheduleModal() { document.getElementById('schedule-modal').classList.add('hidden'); }
 
         function renderCalendar(y, m) {
-            document.querySelectorAll('.sub-month-tab').forEach(el => el.classList.remove('bg-pink-100', 'text-pink-800', 'font-black'));
-            const activeTab = document.getElementById(`month-${y}-${m}`);
-            if(activeTab) activeTab.classList.add('bg-pink-100', 'text-pink-800', 'font-black');
-
-            // 시간외 근무대장 월별 버튼도 동기화
-            document.querySelectorAll('.ot-month-tab').forEach(el => el.classList.remove('bg-sky-100', 'text-sky-800', 'font-black'));
-            const activeOtTab = document.getElementById(`ot-month-${y}-${m}`);
-            if(activeOtTab) activeOtTab.classList.add('bg-sky-100', 'text-sky-800', 'font-black');
-
-            const grid = document.getElementById('calendar-grid');
-            const excelTbody = document.getElementById('duty-excel-tbody');
-            if(grid) grid.innerHTML = "";
-            if(excelTbody) excelTbody.innerHTML = "";
-
+            document.getElementById('duty-current-label').innerText = `${y}년 ${m}월`;
+            updateDutyTimeUI();
+            const grid = document.getElementById('calendar-grid'), excelTbody = document.getElementById('duty-excel-tbody');
+            if(grid) grid.innerHTML = ""; if(excelTbody) excelTbody.innerHTML = "";
             const firstDayIndex = new Date(y, m-1, 1).getDay();
             const totalDays = new Date(y, m, 0).getDate();
             const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
-            for(let i=0; i<firstDayIndex; i++) {
-                if(grid) grid.innerHTML += `<div class="bg-slate-50/40 rounded-2xl h-32 border border-slate-100"></div>`;
-            }
+            for(let i=0; i<firstDayIndex; i++) if(grid) grid.innerHTML += `<div class="bg-slate-50/40 rounded-xl h-28 border border-slate-100"></div>`;
 
             for(let d=1; d<=totalDays; d++) {
                 const key = formatDateStr(y, m, d);
-                const dayData = database.calendar[key] || { duties: [], isHoliday: false };
-                const dtObj = new Date(y, m-1, d);
-                const dow = dtObj.getDay();
-                const isSat = dow === 6;
-                const isSun = dow === 0;
+                const dayData = database.calendar[key] || { duties: [], isHoliday: false, forcedWork: false };
+                const dow = new Date(y, m-1, d).getDay();
+                
+                // 평일 전환되었고 강제 평일 지정(forcedWork)된 경우 휴일 계산에서 제외하여 평일로 처리
+                let effectiveHoliday = ((dow === 0 || dow === 6 || dayData.isHoliday) && !dayData.forcedWork);
+                let holText = effectiveHoliday ? (dayData.isHoliday && dow!==0 && dow!==6 ? "수동휴일" : (holidays[key] || (dow===0?"일요일":dow===6?"토요일":""))) : "평일";
 
                 let slotHtml = "";
-                let dutyArr = dayData.duties || [];
-                
-                dutyArr.forEach((t, sIdx) => {
-                    let slotName = sIdx === 0 ? "오전당직1" : sIdx === 1 ? "오전당직2" : sIdx === 2 ? "오후당직1" : `오후당직${sIdx-1}`;
-                    slotHtml += `
-                        <div onclick="openModal('${key}', ${sIdx})" class="text-[10px] px-1.5 py-0.5 rounded cursor-pointer hover:opacity-85 truncate mb-0.5 font-bold ${t!=='-'?'bg-pink-50 text-pink-700 border border-pink-200':'text-slate-300'}">
-                            <span class="print-duty-label">${slotName}: </span>
-                            <span class="print-duty-name">${t}</span>
-                        </div>`;
-                });
+                if (effectiveHoliday) {
+                    slotHtml = `<div class="text-center text-rose-500 font-bold text-[10px] my-auto py-2">${holText} (당직없음)</div>`;
+                } else {
+                    (dayData.duties || []).forEach((t, sIdx) => {
+                        slotHtml += `<div onclick="openModal('${key}', ${sIdx})" class="text-[9.5px] sm:text-[11px] px-1 py-0.5 rounded cursor-pointer hover:opacity-85 truncate mb-0.5 text-center ${t !== '-' ? `duty-badge-${sIdx} font-bold` : 'text-slate-300'}"><span>${t}</span></div>`;
+                    });
+                }
 
                 if(grid) {
                     grid.innerHTML += `
-                        <div class="bg-white rounded-2xl h-40 p-1.5 border border-slate-200 flex flex-col justify-between shadow-sm">
-                            <div class="flex justify-between items-center text-xs font-black ${isSun||dayData.isHoliday?'text-rose-500':isSat?'text-indigo-600':'text-slate-700'}">
-                                <span>${d}</span>
-                                <span class="text-[9px] text-slate-400">${holidays[key]||''}</span>
+                        <div class="bg-white rounded-xl h-28 sm:h-30 p-1 border border-slate-200 flex flex-col justify-between shadow-sm">
+                            <div class="flex justify-between items-center text-[11px] font-black ${effectiveHoliday?'text-rose-500':'text-slate-700'}">
+                                <span onclick="toggleManualHoliday('${key}')" class="cursor-pointer hover:underline bg-slate-100 px-1 rounded" title="클릭하여 휴일/평일 전환">${d} ${dayData.forcedWork ? '✅' : dayData.isHoliday ? '📌' : ''}</span>
+                                <span class="text-[8px] text-rose-600 font-bold">${effectiveHoliday ? holText : ''}</span>
                             </div>
                             <div class="flex flex-col overflow-y-auto">${slotHtml}</div>
-                        </div>
-                    `;
+                        </div>`;
                 }
-
-                let holidayText = holidays[key] || (isSun ? "일요일" : isSat ? "토요일" : "평일");
                 if(excelTbody) {
-                    excelTbody.innerHTML += `
-                        <tr class="hover:bg-slate-50">
-                            <td class="border p-2 font-mono">${key} (${dayNames[dow]})</td>
-                            <td class="border p-2 font-bold ${isSun||dayData.isHoliday?'text-rose-600':isSat?'text-indigo-600':''}">${holidayText}</td>
-                            <td class="border p-2">${dutyArr[0] || '-'}</td>
-                            <td class="border p-2">${dutyArr[1] || '-'}</td>
-                            <td class="border p-2">${dutyArr[2] || '-'}</td>
-                            <td class="border p-2">${dutyArr[3] || '-'}</td>
-                        </tr>
-                    `;
+                    excelTbody.innerHTML += `<tr class="hover:bg-slate-50"><td class="border p-2 font-mono">${key} (${dayNames[dow]})</td><td class="border p-2 font-bold ${effectiveHoliday?'text-rose-600':''}">${effectiveHoliday?holText:'평일'}</td><td class="border p-2">${effectiveHoliday?'-':dayData.duties[0]}</td><td class="border p-2">${effectiveHoliday?'-':dayData.duties[1]}</td><td class="border p-2">${effectiveHoliday?'-':dayData.duties[2]}</td><td class="border p-2">${effectiveHoliday?'-':dayData.duties[3]}</td></tr>`;
                 }
             }
             renderSummary(y, m);
-            renderDutySignTable(y, m);
-        }
-
-        function renderDutySignTable(y, m) {
-            const activeList = getActiveStaffForMonth(y, m);
-            let headerHtml = "";
-            let bodyHtml = "";
-            activeList.forEach(t => {
-                headerHtml += `<th class="border p-1 text-[9px] font-bold">${t}</th>`;
-                bodyHtml += `<td class="border p-1 text-slate-300 text-[9px]">(서명)</td>`;
-            });
-            const sHeader = document.getElementById('duty-sign-header');
-            const sBody = document.getElementById('duty-sign-body');
-            if(sHeader && sBody) {
-                sHeader.innerHTML = headerHtml;
-                sBody.innerHTML = bodyHtml;
-            }
+            renderSignTableCustom('duty-sign-header', 'duty-sign-body', y, m, getCoreTeachersForMonth(y, m));
         }
 
         function renderSummary(y, m) {
-            const sumGrid = document.getElementById('duty-summary-grid');
-            if(!sumGrid) return;
+            const sumGrid = document.getElementById('duty-summary-grid'); if(!sumGrid) return;
             sumGrid.innerHTML = "";
             const totalDays = new Date(y, m, 0).getDate();
-            const activeList = getActiveStaffForMonth(y, m);
-            
-            activeList.forEach(t => {
-                let cnt = 0;
+            getActiveDutyTeachers(y, m).forEach(t => {
+                let c = [0,0,0,0], total = 0;
                 for(let d=1; d<=totalDays; d++) {
-                    const key = formatDateStr(y, m, d);
-                    if(database.calendar[key] && database.calendar[key].duties.includes(t)) cnt++;
+                    const key = formatDateStr(y, m, d), dayData = database.calendar[key];
+                    const dow = new Date(y, m-1, d).getDay();
+                    let effectiveHoliday = (dow === 0 || dow === 6 || dayData?.isHoliday) && !dayData?.forcedWork;
+                    if (effectiveHoliday) continue;
+                    (dayData?.duties || []).forEach((dt, idx) => { if(dt === t) { c[idx]++; total++; } });
                 }
-                let avg = (cnt / totalDays).toFixed(2);
                 sumGrid.innerHTML += `
-                    <div class="bg-pink-50/60 p-2 rounded-xl text-center border border-pink-100">
-                        <div class="text-[11px] font-black text-slate-700">${t}</div>
-                        <div class="text-xs font-black text-pink-600 mt-1">${cnt}회 (평균 ${avg})</div>
+                    <div class="bg-pink-50/60 p-2.5 rounded-2xl border border-pink-100 flex flex-col justify-between">
+                        <div class="text-xs font-black text-slate-900 border-b border-pink-200 pb-1 mb-1 flex justify-between"><span>${t} (${staffProfiles[t]?.role})</span><span class="text-pink-600 font-bold text-xs">총합계: ${total}회</span></div>
+                        <div class="grid grid-cols-5 gap-1 text-center text-[10px]">
+                            <div class="p-0.5 rounded duty-badge-0"><span class="block text-[8px]">오전1</span><span class="font-bold">${c[0]}</span></div>
+                            <div class="p-0.5 rounded duty-badge-1"><span class="block text-[8px]">오전2</span><span class="font-bold">${c[1]}</span></div>
+                            <div class="p-0.5 rounded duty-badge-2"><span class="block text-[8px]">오후1</span><span class="font-bold">${c[2]}</span></div>
+                            <div class="p-0.5 rounded duty-badge-3"><span class="block text-[8px]">오후2</span><span class="font-bold">${c[3]}</span></div>
+                            <div class="bg-pink-100/70 p-0.5 rounded border border-pink-200"><span class="text-pink-800 block text-[8px] font-bold">평균</span><span class="font-black text-pink-700">${(total/totalDays).toFixed(2)}</span></div>
+                        </div>
                     </div>`;
             });
         }
@@ -1160,72 +1070,42 @@
         function openModal(key, sIdx) {
             currentModalKey = key; currentModalSlotIdx = sIdx;
             document.getElementById('modal-date-info').innerText = `${key} 당직 지정`;
-            document.getElementById('modal-slot-label').innerText = `근무자 변경 (현재 슬롯 #${sIdx+1})`;
-            const sel = document.getElementById('modal-teacher-select');
-            sel.innerHTML = `<option value="-">근무없음 (-)</option>`;
-            
+            document.getElementById('modal-slot-label').innerText = `근무자 변경 (슬롯 #${sIdx+1})`;
+            const sel = document.getElementById('modal-teacher-select'); sel.innerHTML = `<option value="-">-</option>`;
             const parts = key.split('-');
-            getActiveStaffForMonth(Number(parts[0]), Number(parts[1])).forEach(t => {
-                sel.innerHTML += `<option value="${t}" ${database.calendar[key].duties[sIdx]===t?'selected':''}>${t}</option>`;
-            });
+            getActiveStaffForMonth(Number(parts[0]), Number(parts[1])).forEach(t => sel.innerHTML += `<option value="${t}" ${database.calendar[key].duties[sIdx]===t?'selected':''}>${t}</option>`);
             document.getElementById('edit-modal').classList.remove('hidden');
         }
-
         function closeModal() { document.getElementById('edit-modal').classList.add('hidden'); }
-
         function saveModalAssignment() {
-            const val = document.getElementById('modal-teacher-select').value;
-            database.calendar[currentModalKey].duties[currentModalSlotIdx] = val;
-            saveToStorage();
-            closeModal();
-            renderAll();
-        }
-
-        function addDutySlotToDate() {
-            if(!database.calendar[currentModalKey]) {
-                database.calendar[currentModalKey] = { duties: ["-", "-", "-"], isHoliday: false };
-            }
-            database.calendar[currentModalKey].duties.push("홍여진");
-            saveToStorage();
-            closeModal();
-            renderAll();
-            alert("오후당직2 슬롯이 추가되었습니다.");
-        }
-
-        function checkAutoCompensation(teacher, key) {
-            const parts = key.split('-');
-            const currDate = new Date(Number(parts[0]), Number(parts[1])-1, Number(parts[2]));
-            currDate.setDate(currDate.getDate() - 1);
-            const prevKey = formatDateStr(currDate.getFullYear(), currDate.getMonth()+1, currDate.getDate());
-            const prevDayData = database.calendar[prevKey];
-            return (prevDayData && prevDayData.duties && prevDayData.duties[2] === teacher);
+            database.calendar[currentModalKey].duties[currentModalSlotIdx] = document.getElementById('modal-teacher-select').value;
+            saveToStorage(); closeModal(); renderAll();
         }
 
         function getAttendanceRecord(teacher, key) {
-            const dt = new Date(key);
-            const dow = dt.getDay();
-            const dayData = database.calendar[key];
+            const dow = new Date(key).getDay(), dayData = database.calendar[key];
             const profile = staffProfiles[teacher] || { role: "보육교사", joinDate: "2026-03-01", resignDate: "", workStart: "09:00", workEnd: "18:00" };
-            
             if (key < (profile.joinDate || "2000-01-01") || key > (profile.resignDate || "9999-12-31")) return null;
-            if (dow === 0 || dow === 6 || (dayData && dayData.isHoliday)) return { type: "휴무 (주말/공휴일)", inTime: "-", outTime: "-" };
+            
+            let effectiveHoliday = (dow === 0 || dow === 6 || dayData?.isHoliday) && !dayData?.forcedWork;
+            if (effectiveHoliday) return { type: "휴무", inTime: "-", outTime: "-" };
             
             const leave = database.statusLeave.find(l => l.teacher === teacher && l.date === key);
             if (leave) {
                 if (leave.type === "연차") return { type: "연차휴가", inTime: "-", outTime: "-" };
-                if (leave.type === "오전반차") return { type: "오전반차", inTime: "14:00", outTime: profile.workEnd };
-                if (leave.type === "오후반차") return { type: "오후반차", inTime: profile.workStart, outTime: "14:00" };
+                if (leave.type === "오전반차") return { type: "오전반차", inTime: "14:00", outTime: profile.workEnd || "18:00" };
+                if (leave.type === "오후반차") return { type: "오후반차", inTime: profile.workStart || "09:00", outTime: "14:00" };
+                if (leave.type === "경조휴가") return { type: "경조휴가", inTime: "-", outTime: "-" };
             }
 
-            if (dayData && dayData.duties) {
-                if (dayData.duties[0] === teacher) return { type: "오전당직1", inTime: "07:30", outTime: "16:30" };
-                if (dayData.duties[1] === teacher) return { type: "오전당직2", inTime: "08:00", outTime: "17:00" };
-                if (dayData.duties[2] === teacher) return { type: "오후당직1", inTime: "09:00", outTime: "18:30" };
-                if (dayData.duties[3] === teacher) return { type: "오후당직2 (시간외지급)", inTime: "09:30", outTime: "19:30" };
+            const parts = key.split('-'), times = getDutyTimesForMonth(Number(parts[0]), Number(parts[1]));
+            if (dayData?.duties) {
+                if (dayData.duties[0] === teacher) return { type: "오전당직1", inTime: times[0].split('~')[0], outTime: times[0].split('~')[1] };
+                if (dayData.duties[1] === teacher) return { type: "오전당직2", inTime: times[1].split('~')[0], outTime: times[1].split('~')[1] };
+                if (dayData.duties[2] === teacher) return { type: "오후당직1", inTime: times[2].split('~')[0], outTime: times[2].split('~')[1] };
+                if (dayData.duties[3] === teacher) return { type: "오후당직2", inTime: times[3].split('~')[0], outTime: times[3].split('~')[1] };
             }
-
-            if (checkAutoCompensation(teacher, key)) return { type: "보상조기퇴근 (09:00~17:30)", inTime: "09:00", outTime: "17:30" };
-            return { type: `${profile.role} 정상 근무`, inTime: profile.workStart || "09:00", outTime: profile.workEnd || "18:00" };
+            return { type: `${profile.role} 정상 근무`, inTime: "09:00", outTime: "18:00" };
         }
 
         function toggleAttendanceMode() {
@@ -1234,48 +1114,28 @@
             document.getElementById('attendance-teacher-wrap').classList.toggle('hidden', mode !== 'TEACHER');
             renderAttendance();
         }
-
         function renderAttendance() {
-            const mode = document.getElementById('attendance-mode').value;
-            const tbody = document.getElementById('attendance-tbody');
-            const theadTr = document.getElementById('attendance-thead-tr');
-            if(!tbody) return;
-            tbody.innerHTML = "";
-            
-            const startD = new Date(currentYear, currentMonth-1, 1);
-            const endD = new Date(currentYear, currentMonth, 0);
-            const activeList = getActiveStaffForMonth(currentYear, currentMonth);
+            const mode = document.getElementById('attendance-mode').value, tbody = document.getElementById('attendance-tbody'), theadTr = document.getElementById('attendance-thead-tr');
+            if(!tbody) return; tbody.innerHTML = "";
+            const startD = new Date(currentYear, currentMonth-1, 1), endD = new Date(currentYear, currentMonth, 0), activeList = getActiveStaffForMonth(currentYear, currentMonth);
 
             if (mode === 'ALL') {
                 theadTr.innerHTML = `<th class="border p-2">일자 (요일)</th><th class="border p-2">성명 (직종)</th><th class="border p-2">근무 형태 및 비고</th><th class="border p-2">출근 시간</th><th class="border p-2">퇴근 시간</th><th class="border p-2">서명/확인</th>`;
                 for(let d=new Date(startD); d<=endD; d.setDate(d.getDate()+1)) {
                     const key = formatDateStr(d.getFullYear(), d.getMonth()+1, d.getDate());
-                    activeList.forEach(t => {
-                        const rec = getAttendanceRecord(t, key);
-                        if (rec) {
-                            tbody.innerHTML += `<tr class="hover:bg-slate-50"><td class="border p-2 font-mono">${key}</td><td class="border p-2 font-bold">${t} (${staffProfiles[t]?.role})</td><td class="border p-2 font-bold text-pink-700">${rec.type}</td><td class="border p-2 font-mono">${rec.inTime}</td><td class="border p-2 font-mono">${rec.outTime}</td><td class="border p-2 text-slate-400">서명</td></tr>`;
-                        }
-                    });
+                    activeList.forEach(t => { const rec = getAttendanceRecord(t, key); if (rec) tbody.innerHTML += `<tr><td class="border p-2 font-mono">${key}</td><td class="border p-2 font-bold">${t}</td><td class="border p-2 font-bold text-pink-700">${rec.type}</td><td class="border p-2 font-mono">${rec.inTime}</td><td class="border p-2 font-mono">${rec.outTime}</td><td class="border p-2 text-slate-400">서명</td></tr>`; });
                 }
             } else if (mode === 'DATE') {
                 theadTr.innerHTML = `<th class="border p-2">날짜</th><th class="border p-2">성명 (직종)</th><th class="border p-2">근무 형태 및 비고</th><th class="border p-2">출근 시간</th><th class="border p-2">퇴근 시간</th><th class="border p-2">서명/확인</th>`;
-                const selectedDate = document.getElementById('attendance-select-date').value || "2026-07-02";
-                const pParts = selectedDate.split('-');
-                getActiveStaffForMonth(Number(pParts[0]), Number(pParts[1])).forEach(t => {
-                    const rec = getAttendanceRecord(t, selectedDate);
-                    if (rec) {
-                        tbody.innerHTML += `<tr class="hover:bg-slate-50"><td class="border p-2 font-mono">${selectedDate}</td><td class="border p-2 font-bold">${t} (${staffProfiles[t]?.role})</td><td class="border p-2 font-bold text-pink-700">${rec.type}</td><td class="border p-2 font-mono">${rec.inTime}</td><td class="border p-2 font-mono">${rec.outTime}</td><td class="border p-2 text-slate-400">서명</td></tr>`;
-                    }
-                });
+                const selDate = document.getElementById('attendance-select-date').value || "2026-07-02";
+                const pParts = selDate.split('-');
+                getActiveStaffForMonth(Number(pParts[0]), Number(pParts[1])).forEach(t => { const rec = getAttendanceRecord(t, selDate); if (rec) tbody.innerHTML += `<tr><td class="border p-2 font-mono">${selDate}</td><td class="border p-2 font-bold">${t}</td><td class="border p-2 font-bold text-pink-700">${rec.type}</td><td class="border p-2 font-mono">${rec.inTime}</td><td class="border p-2 font-mono">${rec.outTime}</td><td class="border p-2 text-slate-400">서명</td></tr>`; });
             } else {
                 theadTr.innerHTML = `<th class="border p-2">일자 (요일)</th><th class="border p-2">성명</th><th class="border p-2">근무 형태 및 비고</th><th class="border p-2">출근 시간</th><th class="border p-2">퇴근 시간</th><th class="border p-2">서명/확인</th>`;
-                const selectedTeacher = document.getElementById('attendance-teacher-select').value || getAllStaff()[0];
+                const selTeacher = document.getElementById('attendance-teacher-select').value || getAllStaff()[0];
                 for(let d=new Date(startD); d<=endD; d.setDate(d.getDate()+1)) {
-                    const key = formatDateStr(d.getFullYear(), d.getMonth()+1, d.getDate());
-                    const rec = getAttendanceRecord(selectedTeacher, key);
-                    if (rec) {
-                        tbody.innerHTML += `<tr class="hover:bg-slate-50"><td class="border p-2 font-mono">${key}</td><td class="border p-2 font-bold">${selectedTeacher}</td><td class="border p-2 font-bold text-pink-700">${rec.type}</td><td class="border p-2 font-mono">${rec.inTime}</td><td class="border p-2 font-mono">${rec.outTime}</td><td class="border p-2 text-slate-400">서명</td></tr>`;
-                    }
+                    const key = formatDateStr(d.getFullYear(), d.getMonth()+1, d.getDate()), rec = getAttendanceRecord(selTeacher, key);
+                    if (rec) tbody.innerHTML += `<tr><td class="border p-2 font-mono">${key}</td><td class="border p-2 font-bold">${selTeacher}</td><td class="border p-2 font-bold text-pink-700">${rec.type}</td><td class="border p-2 font-mono">${rec.inTime}</td><td class="border p-2 font-mono">${rec.outTime}</td><td class="border p-2 text-slate-400">서명</td></tr>`;
                 }
             }
         }
@@ -1285,265 +1145,104 @@
             const type = document.getElementById('reg-type').value;
             const date = document.getElementById('reg-date').value;
             const reason = document.getElementById('reg-reason').value;
+            let days = type === '연차' ? 1.0 : type.includes('반차') ? 0.5 : 0.0;
 
-            database.statusLeave.push({ teacher, type, date, reason, days: type==='연차'?1.0:0.5 });
-            saveToStorage();
-            renderStatusLeave();
-            renderLeave();
-            renderAttendance();
-            renderScheduleCalendar(scheduleYear, scheduleMonth);
-            alert("근무상황부에 등록되었으며 행사일정표 및 연월차대장에 자동 연동되었습니다.");
+            database.statusLeave.push({ teacher, type, date, reason, days });
+            saveToStorage(); renderStatusLeave(); renderLeave(); renderAttendance(); renderScheduleCalendar(scheduleYear, scheduleMonth);
+            alert("근무상황부에 정상 등록되었습니다.");
         }
-
-        function deleteLeave(idx) {
-            database.statusLeave.splice(idx, 1);
-            saveToStorage();
-            renderStatusLeave();
-            renderLeave();
-            renderAttendance();
-            renderScheduleCalendar(scheduleYear, scheduleMonth);
-        }
+        function deleteLeave(idx) { database.statusLeave.splice(idx, 1); saveToStorage(); renderStatusLeave(); renderLeave(); renderAttendance(); }
 
         function renderStatusLeave() {
-            const filterVal = document.getElementById('status-filter-teacher').value;
-            const tbody = document.getElementById('status-tbody');
-            if(!tbody) return;
-            tbody.innerHTML = "";
-            
-            const filteredList = (filterVal === 'ALL') ? database.statusLeave : database.statusLeave.filter(l => l.teacher === filterVal);
-            
-            if(filteredList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-3 text-slate-400">휴가 신청 내역이 없습니다.</td></tr>`;
-            } else {
-                filteredList.forEach((l) => {
-                    const globalIdx = database.statusLeave.indexOf(l);
-                    tbody.innerHTML += `
-                        <tr>
-                            <td class="border p-2 font-bold">${l.teacher}</td>
-                            <td class="border p-2 text-pink-600 font-bold">${l.type}</td>
-                            <td class="border p-2 font-mono">${l.date}</td>
-                            <td class="border p-2">${l.days}일</td>
-                            <td class="border p-2">${l.reason}</td>
-                            <td class="border p-2 no-print"><button onclick="deleteLeave(${globalIdx})" class="text-rose-500"><i class="fa-solid fa-trash"></i></button></td>
-                        </tr>
-                    `;
-                });
-            }
-
-            const sHeader = document.getElementById('status-sign-header');
-            const sBody = document.getElementById('status-sign-body');
-            const sTitle = document.getElementById('status-sign-title');
-            
-            if(filterVal === 'ALL') {
-                sTitle.innerText = "근무상황부 전체 교직원 확인 및 서명란";
-                const activeList = getActiveStaffForMonth(currentYear, currentMonth);
-                let hHtml = ""; let bHtml = "";
-                activeList.forEach(t => {
-                    hHtml += `<th class="border p-1 text-[9px] font-bold">${t}</th>`;
-                    bHtml += `<td class="border p-1 text-slate-300 text-[9px]">(서명)</td>`;
-                });
-                sHeader.innerHTML = hHtml;
-                sBody.innerHTML = bHtml;
-            } else {
-                sTitle.innerText = `${filterVal} 교직원 근무상황 확인란`;
-                sHeader.innerHTML = `<th class="border p-1 text-[10px] font-bold bg-slate-50">${filterVal} (본인)</th><th class="border p-1 text-[10px] font-bold bg-slate-50">원 장</th>`;
-                sBody.innerHTML = `<td class="border p-1 text-slate-400 text-[10px]">(서명)</td><td class="border p-1 text-slate-400 text-[10px]">(인)</td>`;
-            }
+            const filterVal = document.getElementById('status-filter-teacher').value, tbody = document.getElementById('status-tbody');
+            if(!tbody) return; tbody.innerHTML = "";
+            const list = (filterVal === 'ALL') ? database.statusLeave : database.statusLeave.filter(l => l.teacher === filterVal);
+            if(list.length === 0) tbody.innerHTML = `<tr><td colspan="6" class="p-3 text-slate-400">신청 내역이 없습니다.</td></tr>`;
+            list.forEach((l) => {
+                tbody.innerHTML += `<tr><td class="border p-2 font-bold">${l.teacher}</td><td class="border p-2 text-pink-600 font-bold">${l.type}</td><td class="border p-2 font-mono">${l.date}</td><td class="border p-2">${l.days}일</td><td class="border p-2">${l.reason}</td><td class="border p-2 no-print"><button onclick="deleteLeave(${database.statusLeave.indexOf(l)})" class="text-rose-500"><i class="fa-solid fa-trash"></i></button></td></tr>`;
+            });
+            renderStatusSignTable(filterVal);
+        }
+        function renderStatusSignTable(filterVal) {
+            const sh = document.getElementById('status-sign-header'), sb = document.getElementById('status-sign-body'), st = document.getElementById('status-sign-title');
+            if(filterVal === 'ALL') { st.innerText = "근무상황부 전체 교직원 확인 및 서명란"; renderSignTableGeneric('status-sign-header', 'status-sign-body', currentYear, currentMonth); }
+            else { st.innerText = `${filterVal} 교직원 근무상황 확인란`; sh.innerHTML = `<th class="border p-1 text-[10px] font-bold bg-slate-50">${filterVal} (본인)</th><th class="border p-1 text-[10px] font-bold bg-slate-50">원 장</th>`; sb.innerHTML = `<td class="border p-1 text-slate-400 text-[10px]">(서명)</td><td class="border p-1 text-slate-400 text-[10px]">(인)</td>`; }
         }
 
         function renderOvertime() {
-            const tbody = document.getElementById('overtime-tbody');
-            const teacherSummaryDiv = document.getElementById('ot-teacher-summary');
-            const teacherStatsGrid = document.getElementById('ot-teacher-stats-grid');
-            if(!tbody) return;
-            tbody.innerHTML = "";
-            teacherSummaryDiv.innerHTML = "";
-            if(teacherStatsGrid) teacherStatsGrid.innerHTML = "";
-
-            let countByTeacher = {};
-            getAllStaff().forEach(t => {
-                countByTeacher[t] = 0;
-            });
-            let grandTotalCount = 0;
-
-            const startD = new Date(currentYear, currentMonth-1, 1);
-            const endD = new Date(currentYear, currentMonth, 0);
-            const activeList = getActiveStaffForMonth(currentYear, currentMonth);
+            document.getElementById('ot-current-label').innerText = `${currentYear}년 ${currentMonth}월`;
+            const tbody = document.getElementById('overtime-tbody'), grid = document.getElementById('ot-teacher-stats-grid');
+            if(!tbody) return; tbody.innerHTML = ""; if(grid) grid.innerHTML = "";
+            let counts = {}; getAllStaff().forEach(t => counts[t] = 0);
+            const startD = new Date(currentYear, currentMonth-1, 1), endD = new Date(currentYear, currentMonth, 0), activeList = getActiveStaffForMonth(currentYear, currentMonth);
 
             for(let d=new Date(startD); d<=endD; d.setDate(d.getDate()+1)) {
-                const key = formatDateStr(d.getFullYear(), d.getMonth()+1, d.getDate());
-                const dayData = database.calendar[key];
-                if(dayData && dayData.duties) {
-                    for(let sIdx=3; sIdx<dayData.duties.length; sIdx++) {
-                        let otTeacher = dayData.duties[sIdx];
-                        if(otTeacher && otTeacher !== '-' && activeList.includes(otTeacher)) {
-                            let profile = staffProfiles[otTeacher] || {};
-                            
-                            countByTeacher[otTeacher] = (countByTeacher[otTeacher] || 0) + 1;
-                            grandTotalCount += 1;
-
-                            tbody.innerHTML += `
-                                <tr>
-                                    <td class="border p-2 font-mono">${key}</td>
-                                    <td class="border p-2 font-bold">${otTeacher}</td>
-                                    <td class="border p-2 text-slate-500">${profile.role || '보육교사'}</td>
-                                    <td class="border p-2 text-sky-700 font-bold">오후당직2 (1시간)</td>
-                                    <td class="border p-2 text-slate-400 text-[11px]">(서명)</td>
-                                </tr>
-                            `;
-                        }
-                    }
+                const key = formatDateStr(d.getFullYear(), d.getMonth()+1, d.getDate()), dayData = database.calendar[key];
+                const dow = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getDay();
+                let effectiveHoliday = (dow === 0 || dow === 6 || dayData?.isHoliday) && !dayData?.forcedWork;
+                if (effectiveHoliday) continue;
+                if(dayData?.duties && dayData.duties[3] && dayData.duties[3] !== '-' && activeList.includes(dayData.duties[3])) {
+                    let t = dayData.duties[3]; counts[t] = (counts[t] || 0) + 1;
+                    tbody.innerHTML += `<tr><td class="border p-2 font-mono">${key}</td><td class="border p-2 font-bold">${t}</td><td class="border p-2 text-slate-500">${staffProfiles[t]?.role}</td><td class="border p-2 text-sky-700 font-bold">오후당직2 (1시간)</td><td class="border p-2 text-slate-400 text-[11px]">(서명)</td></tr>`;
                 }
             }
-
-            activeList.forEach(t => {
-                let cnt = countByTeacher[t] || 0;
-                
-                if(teacherStatsGrid) {
-                    teacherStatsGrid.innerHTML += `
-                        <div class="bg-sky-50/60 p-2 rounded-xl text-center border border-sky-100">
-                            <div class="text-[11px] font-black text-slate-700">${t}</div>
-                            <div class="text-xs font-black text-sky-600 mt-1">${cnt}회 (1시간)</div>
-                        </div>`;
-                }
-
-                if(cnt > 0) {
-                    teacherSummaryDiv.innerHTML += `<div class="flex justify-between items-center py-1 border-b border-sky-100"><span>${t}</span><span class="text-sky-700 font-mono font-black">${cnt}회</span></div>`;
-                }
-            });
-
-            if(teacherSummaryDiv.innerHTML === "") teacherSummaryDiv.innerHTML = `<span class="text-slate-400">당월 시간외 지급 대상 내역이 없습니다.</span>`;
-            document.getElementById('ot-grand-total').innerText = grandTotalCount;
-            renderOvertimeSignTable(currentYear, currentMonth);
-        }
-
-        function renderOvertimeSignTable(y, m) {
-            const activeList = getActiveStaffForMonth(y, m);
-            let headerHtml = "";
-            let bodyHtml = "";
-            activeList.forEach(t => {
-                headerHtml += `<th class="border p-1 text-[9px] font-bold">${t}</th>`;
-                bodyHtml += `<td class="border p-1 text-slate-300 text-[9px]">(서명)</td>`;
-            });
-            const sHeader = document.getElementById('overtime-sign-header');
-            const sBody = document.getElementById('overtime-sign-body');
-            if(sHeader && sBody) {
-                sHeader.innerHTML = headerHtml;
-                sBody.innerHTML = bodyHtml;
-            }
+            activeList.forEach(t => { if(grid) grid.innerHTML += `<div class="bg-sky-50/60 p-2 rounded-xl border border-sky-100 flex flex-col justify-between"><span class="text-xs font-bold text-slate-800">${t}</span><span class="text-sm font-black text-sky-700">${counts[t] || 0}회</span></div>`; });
+            renderSignTableGeneric('overtime-sign-header', 'overtime-sign-body', currentYear, currentMonth);
         }
 
         function renderLeave() {
-            const filterVal = document.getElementById('leave-filter-teacher').value;
-            const tbody = document.getElementById('leave-tbody');
-            if(!tbody) return;
-            tbody.innerHTML = "";
-
-            const targetList = (filterVal === 'ALL') ? getAllStaff() : [filterVal];
-            let totalUsedAll = 0;
-            let totalRemainAll = 0;
+            const filterVal = document.getElementById('leave-filter-teacher').value, tbody = document.getElementById('leave-tbody');
+            if(!tbody) return; tbody.innerHTML = "";
+            const activeList = getActiveStaffForMonth(currentYear, currentMonth);
+            const targetList = (filterVal === 'ALL') ? activeList : [filterVal];
 
             targetList.forEach(t => {
-                const p = staffProfiles[t] || {};
-                const used = database.statusLeave.filter(l => l.teacher === t).reduce((acc, cur) => acc + cur.days, 0);
-                const totalGiven = 15;
-                const remain = totalGiven - used;
-                totalUsedAll += used;
-                totalRemainAll += remain;
+                const profile = staffProfiles[t] || {};
+                const used = database.statusLeave.filter(l => l.teacher === t && (l.type === '연차' || l.type.includes('반차'))).reduce((acc, cur) => acc + cur.days, 0);
+                const totalGrant = customLeaveGrants[t] !== undefined ? customLeaveGrants[t] : 15;
+                const remain = totalGrant - used;
 
                 tbody.innerHTML += `
                     <tr>
                         <td class="border p-2 font-bold">${t}</td>
-                        <td class="border p-2">${p.role}</td>
-                        <td class="border p-2 font-mono"><input type="date" value="${p.birthDate || '1995-01-01'}" onchange="updateStaffField('${t}', 'birthDate', this.value)" class="bg-transparent text-center w-28 text-xs font-mono"></td>
-                        <td class="border p-2 font-mono"><input type="text" value="${p.workStart || '09:00'}" onchange="updateStaffField('${t}', 'workStart', this.value)" class="bg-transparent text-center w-14 text-xs font-mono"></td>
-                        <td class="border p-2 font-mono"><input type="text" value="${p.workEnd || '18:00'}" onchange="updateStaffField('${t}', 'workEnd', this.value)" class="bg-transparent text-center w-14 text-xs font-mono"></td>
-                        <td class="border p-2 font-mono"><input type="date" value="${p.joinDate || '2026-03-01'}" onchange="updateStaffField('${t}', 'joinDate', this.value)" class="bg-transparent text-center w-28 text-xs font-mono"></td>
-                        <td class="border p-2 font-mono font-bold">15일</td>
-                        <td class="border p-2 font-mono font-bold text-rose-600 bg-rose-50/50">${used}일</td>
-                        <td class="border p-2 font-mono font-bold text-emerald-600 bg-emerald-50/50">${remain}일</td>
+                        <td class="border p-2 text-slate-500">${profile.role}</td>
+                        <td class="border p-2 font-mono">${profile.birthDate || '-'}</td>
+                        <td class="border p-2 font-mono">${profile.joinDate || '-'}</td>
+                        <td class="border p-2 bg-pink-50/40"><input type="number" step="0.5" value="${totalGrant}" onchange="updateCustomLeaveGrant('${t}', this.value); renderLeave();" class="w-16 text-center font-bold bg-white border border-pink-200 rounded p-1 text-xs">일</td>
+                        <td class="border p-2 font-bold text-rose-600">${used}일</td>
+                        <td class="border p-2 font-black text-emerald-600">${remain}일</td>
                         <td class="border p-2 no-print"><button onclick="deleteStaff('${t}')" class="text-rose-500"><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                `;
+                    </tr>`;
             });
-
-            document.getElementById('card-target-name').innerText = filterVal === 'ALL' ? '전체 교직원' : filterVal;
-            document.getElementById('card-used-date').innerText = totalUsedAll + '일';
-            document.getElementById('card-remain-date').innerText = (totalRemainAll / targetList.length).toFixed(1) + '일';
-            renderLeaveSignTable(currentYear, currentMonth);
-        }
-
-        function renderLeaveSignTable(y, m) {
-            const activeList = getActiveStaffForMonth(y, m);
-            let headerHtml = "";
-            let bodyHtml = "";
-            activeList.forEach(t => {
-                headerHtml += `<th class="border p-1 text-[9px] font-bold">${t}</th>`;
-                bodyHtml += `<td class="border p-1 text-slate-300 text-[9px]">(서명)</td>`;
-            });
-            const sHeader = document.getElementById('leave-sign-header');
-            const sBody = document.getElementById('leave-sign-body');
-            if(sHeader && sBody) {
-                sHeader.innerHTML = headerHtml;
-                sBody.innerHTML = bodyHtml;
-            }
-        }
-
-        function updateStaffField(teacher, field, val) {
-            if(staffProfiles[teacher]) {
-                staffProfiles[teacher][field] = val;
-                saveToStorage();
-                renderAll();
-            }
-        }
-
-        function saveStaffInfoFromLeave() {
-            saveToStorage();
-            renderAll();
-            alert("교직원 정보(근무시간 및 생일 등)가 저장되었습니다.");
+            renderSignTableGeneric('leave-sign-header', 'leave-sign-body', currentYear, currentMonth);
         }
 
         function renderWelfare() {
-            const filterVal = document.getElementById('welfare-filter-teacher').value;
-            const tbody = document.getElementById('welfare-tbody');
-            if(!tbody) return;
-            tbody.innerHTML = "";
+            const filterVal = document.getElementById('welfare-filter-teacher').value, tbody = document.getElementById('welfare-tbody');
+            if(!tbody) return; tbody.innerHTML = "";
+            const list = (filterVal === 'ALL') ? welfareCustomList : welfareCustomList.filter(w => w.name === filterVal);
 
-            const filteredList = (filterVal === 'ALL') ? welfareCustomList : welfareCustomList.filter(w => w.name === filterVal);
-            
-            filteredList.forEach(w => {
-                const p = staffProfiles[w.name] || {};
+            list.forEach(item => {
+                const gIdx = welfareCustomList.indexOf(item);
+                const profile = staffProfiles[item.name] || {};
                 tbody.innerHTML += `
                     <tr>
-                        <td class="border p-2 font-bold">${w.name}</td>
-                        <td class="border p-2">${p.role || '보육교사'}</td>
-                        <td class="border p-2 font-mono">${p.birthDate || '-'}</td>
-                        <td class="border p-2 font-mono">${p.joinDate || '-'}</td>
-                        <td class="border p-2 font-mono">${p.resignDate || '재직중'}</td>
-                        <td class="border p-2">${w.checkup}</td>
-                        <td class="border p-2 font-mono font-bold text-indigo-600">${w.pt}</td>
-                        <td class="border p-2 text-left px-3">${w.item}</td>
-                        <td class="border p-2 no-print"><button onclick="deleteWelfareRow(${w.id})" class="text-rose-500"><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                `;
+                        <td class="border p-2 font-bold">${item.name}</td>
+                        <td class="border p-2 text-slate-500">${profile.role || '-'}</td>
+                        <td class="border p-2 font-mono">${item.checkup}</td>
+                        <td class="border p-2 font-bold text-indigo-600">${item.pt}</td>
+                        <td class="border p-2">${item.item}</td>
+                        <td class="border p-2 no-print">
+                            <button onclick="openWelfareModal(${gIdx})" class="text-indigo-600 mr-2"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteWelfareItem(${gIdx})" class="text-rose-500"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
             });
-            renderWelfareSignTable(currentYear, currentMonth);
+            renderSignTableGeneric('welfare-sign-header', 'welfare-sign-body', currentYear, currentMonth);
         }
 
-        function renderWelfareSignTable(y, m) {
-            const activeList = getActiveStaffForMonth(y, m);
-            let headerHtml = "";
-            let bodyHtml = "";
-            activeList.forEach(t => {
-                headerHtml += `<th class="border p-1 text-[9px] font-bold">${t}</th>`;
-                bodyHtml += `<td class="border p-1 text-slate-300 text-[9px]">(서명)</td>`;
-            });
-            const sHeader = document.getElementById('welfare-sign-header');
-            const sBody = document.getElementById('welfare-sign-body');
-            if(sHeader && sBody) {
-                sHeader.innerHTML = headerHtml;
-                sBody.innerHTML = bodyHtml;
-            }
+        function deleteStaff(name) {
+            if(confirm(`${name} 교직원을 삭제하시겠습니까?`)) { delete staffProfiles[name]; saveToStorage(); buildSelects(); renderAll(); }
         }
 
         function renderAll() {
@@ -1558,36 +1257,31 @@
 
         function printCurrentTab() { window.print(); }
 
-        function exportCurrentTabExcel() {
-            let tableId = "schedule-excel-table";
-            let filename = `시립이음어린이집_${scheduleYear}년_${scheduleMonth}월_행사일정표.xlsx`;
-            if(activeTabId === 'tab-duty') {
-                tableId = "duty-excel-table";
-                filename = `시립이음어린이집_${currentYear}년_${currentMonth}월_당직표.xlsx`;
-            } else if(activeTabId === 'tab-overtime') {
-                filename = `시립이음어린이집_${currentYear}년_${currentMonth}월_시간외근무대장.xlsx`;
-            }
-            const table = document.getElementById(tableId);
-            if(!table) { alert("다운로드할 데이터가 없습니다."); return; }
-            const wb = XLSX.utils.table_to_book(table, { sheet: "행정시트" });
-            XLSX.writeFile(wb, filename);
-        }
-
         function copyTableForHWP() {
-            let targetElem = document.getElementById(activeTabId);
-            if (!targetElem) return;
-            
-            let range = document.createRange();
-            range.selectNode(targetElem);
+            const activeEl = document.querySelector('.tab-content.active-print');
+            if (!activeEl) return;
+            const range = document.createRange();
+            range.selectNode(activeEl);
             window.getSelection().removeAllRanges();
             window.getSelection().addRange(range);
             try {
                 document.execCommand('copy');
-                window.getSelection().removeAllRanges();
-                alert("클립보드에 복사되었습니다. 한글(HWP) 문서에 바로 붙여넣기(Ctrl+V) 하세요.");
+                alert("현재 탭의 화면 데이터가 클립보드에 복사되었습니다.\n한글(HWP)이나 엑셀 창에 그대로 붙여넣기(Ctrl+V) 하세요.");
             } catch (err) {
-                alert("복사 실패. 브라우저 보안 설정을 확인해주세요.");
+                alert("복사 실패: 브라우저 보안 설정을 확인해주세요.");
             }
+            window.getSelection().removeAllRanges();
+        }
+
+        function exportCurrentTabExcel() {
+            let tableElem = null;
+            if(activeTabId === 'tab-duty') tableElem = document.getElementById('duty-excel-table');
+            else if(activeTabId === 'tab-schedule') tableElem = document.getElementById('schedule-excel-table');
+            else tableElem = document.querySelector(`#${activeTabId} table`);
+
+            if(!tableElem) { alert("다운로드할 표가 없습니다."); return; }
+            let wb = XLSX.utils.table_to_book(tableElem, {sheet: "행정서류"});
+            XLSX.writeFile(wb, `이음어린이집_${activeTabId}_${currentYear}년${currentMonth}월.xlsx`);
         }
     </script>
 </body>
